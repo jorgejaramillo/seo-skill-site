@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<meta name="builder" content="Stronglify">
+<link rel="icon" type="image/x-icon" href="https://stronglify-img.s3.amazonaws.com/12/fav-1771113142.png">
+<title>Análisis de Internal Linking en este sitio web</title>
+<meta name="description" content="Análisis de Internal Linking en este sitio web">
+<meta name="robots" content="index">
+<link rel="canonical" href="https://seo-skills.com/internal-linking">
+<style>
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}
+fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}img{max-width:100%;height:auto}
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: '#0B0F1A',
+            'surface-raised': '#111827',
+            'surface-overlay': '#1A1F2E',
+            ink: '#F1F5F9',
+            'ink-strong': '#FFFFFF',
+            cyan: '#06B6D4',
+            'cyan-light': 'rgba(6,182,212,0.08)',
+            'cyan-mid': 'rgba(6,182,212,0.2)',
+            border: '#1E293B',
+            'border-light': '#293548',
+            muted: '#B0BEC5',
+            'muted-light': '#7C8FA3',
+          },
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['Manrope', 'sans-serif'],
+            mono: ['IBM Plex Mono', 'monospace'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Manrope', sans-serif; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      opacity: 0;
+      animation: fadeUp 0.4s ease-out forwards;
+    }
+    .delay-1 { animation-delay: 0.04s; }
+    .delay-2 { animation-delay: 0.08s; }
+    .delay-3 { animation-delay: 0.12s; }
+    .delay-4 { animation-delay: 0.16s; }
+    .delay-5 { animation-delay: 0.2s; }
+    .delay-6 { animation-delay: 0.24s; }
+    .delay-7 { animation-delay: 0.28s; }
+
+    .command-bar { transition: box-shadow 0.2s ease, border-color 0.2s ease; }
+    .command-bar:hover {
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.08);
+      border-color: rgba(6,182,212,0.3);
+    }
+
+    @keyframes copyPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+    .copy-success { animation: copyPulse 0.3s ease; }
+
+     
+    .doc-content h2 {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+      font-size: 1.1875rem;
+      color: #FFFFFF;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.375rem;
+      border-bottom: 1px solid #1E293B;
+    }
+    .doc-content h3 {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #F1F5F9;
+      margin-top: 1.25rem;
+      margin-bottom: 0.375rem;
+    }
+    .doc-content p {
+      color: #B0BEC5;
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+    .doc-content ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 0.75rem;
+    }
+    .doc-content ul li {
+      position: relative;
+      padding-left: 1.125rem;
+      color: #B0BEC5;
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      margin-bottom: 0.125rem;
+    }
+    .doc-content ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.65em;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #06B6D4;
+    }
+    .doc-content code {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.875rem;
+      background: rgba(6,182,212,0.06);
+      color: #F1F5F9;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+      border: 1px solid #1E293B;
+    }
+    .doc-content pre {
+      background: #0F172A;
+      color: #E2E8F0;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      border: 1px solid #1E293B;
+    }
+    .doc-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: inherit;
+      font-size: inherit;
+    }
+    .doc-content .code-comment { color: #7C8FA3; }
+    .doc-content .code-keyword { color: #22D3EE; }
+    .doc-content .code-string { color: #67E8F9; }
+    .doc-content .code-number { color: #FCD34D; }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+    }
+    .doc-content table th {
+      text-align: left;
+      font-weight: 600;
+      color: #F1F5F9;
+      padding: 0.5rem 0.625rem;
+      border-bottom: 1px solid #293548;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .doc-content table td {
+      padding: 0.5rem 0.625rem;
+      border-bottom: 1px solid #1E293B;
+      color: #B0BEC5;
+    }
+    .doc-content table tr:hover td {
+      background: rgba(6,182,212,0.04);
+    }
+
+    .related-skill { transition: all 0.15s ease; }
+    .related-skill:hover {
+      border-color: rgba(6,182,212,0.3);
+      background: rgba(6,182,212,0.04);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 9999;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+  </style>
+
+  
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MF348R83');</script>
+</head>
+<body>
+  
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MF348R83"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="bg-surface text-ink antialiased min-h-screen">
+
+  <div class="animate-fade-up delay-1 border-b border-border bg-surface-raised/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-[1200px] mx-auto px-6 h-12 flex items-center justify-between">
+      <a href="https://seo-skills.com" class="flex items-center gap-2.5 group">
+        <span class="font-display font-800 text-[15px] tracking-wide text-ink-strong">SEO SKILLS</span>
+      </a>
+      <div class="flex items-center gap-5">
+        
+        <a href="https://seo-skills.com/informacion" class="text-[13px] text-muted font-medium hover:text-cyan transition-colors">Información</a>
+        
+        <a href="https://seo-skills.com/usar" class="text-[13px] text-muted font-medium hover:text-cyan transition-colors">¿Cómo usarlo?</a>
+             
+        <a href="https://github.com/jorgejaramillo/seoskills" class="text-[13px] text-muted font-medium hover:text-cyan transition-colors flex items-center gap-1.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="max-w-[1200px] mx-auto px-6 pt-4">
+    <nav class="animate-fade-up delay-2 flex items-center gap-2 text-xs font-mono text-muted-light">
+      <a href="https://seo-skills.com" class="hover:text-cyan transition-colors">SEO Skills</a>
+      <span>/</span>
+      <span class="text-muted">SEO Técnico</span>
+      <span>/</span>
+      <span class="text-ink font-medium">Análisis SEO de las imágenes</span>
+    </nav>
+  </div>
+
+  
+  <div class="max-w-[1200px] mx-auto px-6 pt-5 pb-14">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8">
+
+      
+      <div>
+        
+        <div class="animate-fade-up delay-3 mb-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="inline-flex px-2 py-0.5 rounded text-[11px] font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">SEO Técnico</span>          </div>
+          <h1 class="font-display font-800 text-[26px] lg:text-[32px] tracking-tight text-ink-strong leading-tight">
+            Análisis SEO de las imágenes
+          </h1>
+          <p class="text-muted text-[15px] mt-2 max-w-2xl leading-relaxed">
+            Y este explica un poco sí y un poco no
+          </p>
+        </div>
+
+        
+        <div class="animate-fade-up delay-4 command-bar bg-surface-raised border border-border rounded-lg px-4 py-3 flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3 overflow-hidden">
+            <span class="text-muted-light font-mono text-[15px] select-none">$</span>
+            <code class="font-mono text-[15px] text-ink font-medium truncate" id="commandText">Para descargarlo espero hacer eso git.com</code>
+          </div>
+          <button onclick="copyCommand()" id="copyBtn" class="flex-shrink-0 ml-3 p-1.5 rounded-md hover:bg-cyan-light text-muted-light hover:text-cyan transition-all" title="Copiar comando">
+            <svg id="copyIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <svg id="checkIcon" class="hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#06B6D4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </button>
+        </div>
+
+        
+      <div class="animate-fade-up delay-5">
+  <pre class="max-3xl whitespace-pre-wrap break-words font-mono text-sm leading-relaxed bg-indigo-950 p-6 rounded-xl">
+&lt;!-- Updated: 2026-02-14 --&gt;
+---
+name: seo-images
+description: &gt;
+  Image optimization analysis for SEO and performance. Checks alt text, file
+  sizes, formats, responsive images, lazy loading, and CLS prevention. Use when
+  user says &quot;image optimization&quot;, &quot;alt text&quot;, &quot;image SEO&quot;, &quot;image size&quot;,
+  &quot;optimize images&quot;, &quot;image performance&quot;, or &quot;image audit&quot;.
+---
+
+# Image Optimization Analysis
+
+Analyze images on a webpage or site for SEO and performance optimization. Provide actionable recommendations sorted by impact.
+
+## Input
+
+Expects one of:
+- URL to analyze (fetches and parses HTML)
+- HTML file or content
+- List of image URLs to audit
+
+## Analysis Checklist
+
+### 1. Alt Text Quality
+
+Every `&lt;img&gt;` must have descriptive alt text (except decorative images with `role=&quot;presentation&quot;` or `alt=&quot;&quot;`).
+
+**Quality criteria:**
+- Describes image content, not filename
+- Natural keyword inclusion (no stuffing)
+- Length: 10-125 characters
+- Context-appropriate
+
+**Examples:**
+
+| ✅ Good | ❌ Bad | Why |
+|---------|--------|-----|
+| &quot;Chocolate labrador puppy playing with tennis ball in backyard&quot; | &quot;IMG_2847.jpg&quot; | Descriptive vs filename |
+| &quot;Graph showing 40% increase in organic traffic from Q3 to Q4&quot; | &quot;graph chart data analytics metrics&quot; | Natural vs keyword stuffing |
+| &quot;Black leather office chair with ergonomic lumbar support&quot; | &quot;Click here to see more&quot; | Descriptive vs call-to-action |
+| &quot;Sunset over Golden Gate Bridge, San Francisco&quot; | &quot;Photo&quot; | Specific vs generic |
+
+**Decorative images** (dividers, backgrounds, spacers):
+```html
+&lt;img src=&quot;divider.png&quot; role=&quot;presentation&quot; alt=&quot;&quot;&gt;
+```
+
+### 2. File Size Optimization
+
+**Tiered thresholds by image type:**
+
+| Image Category | Target | Warning | Critical | Examples |
+|----------------|--------|---------|----------|----------|
+| Thumbnails / Icons | &lt; 50KB | &gt; 100KB | &gt; 200KB | Product thumbnails, author avatars, category icons |
+| Content images | &lt; 100KB | &gt; 200KB | &gt; 500KB | Blog photos, product images, gallery items |
+| Hero / Banner images | &lt; 200KB | &gt; 300KB | &gt; 700KB | Above-fold hero images, full-width banners |
+| Background images | &lt; 150KB | &gt; 250KB | &gt; 600KB | Section backgrounds, pattern fills |
+
+**Flag images exceeding thresholds and estimate compression savings.**
+
+### 3. Modern Format Usage
+
+**Recommended format hierarchy:**
+
+| Format | Browser Support | Compression | Use Case | File Size Comparison |
+|--------|-----------------|-------------|----------|---------------------|
+| AVIF | 93.8% | Best | Photos, complex images | 50% smaller than JPEG |
+| WebP | 95.3% | Excellent | Default for most images | 25-35% smaller than JPEG |
+| JPEG | 100% | Good | Fallback for photos | Baseline |
+| PNG | 100% | Lossless | Graphics with transparency | Larger than WebP |
+| SVG | 100% | Vector | Icons, logos, simple graphics | Scales without quality loss |
+
+**Preferred `&lt;picture&gt;` element pattern:**
+
+```html
+&lt;picture&gt;
+  &lt;source srcset=&quot;hero-image.avif&quot; type=&quot;image/avif&quot;&gt;
+  &lt;source srcset=&quot;hero-image.webp&quot; type=&quot;image/webp&quot;&gt;
+  &lt;img src=&quot;hero-image.jpg&quot; alt=&quot;Modern living room with minimalist furniture&quot; 
+       width=&quot;1200&quot; height=&quot;675&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;
+&lt;/picture&gt;
+```
+
+**Flag:**
+- JPEGs/PNGs that should be WebP/AVIF
+- Missing fallback formats in `&lt;picture&gt;` elements
+- Estimate conversion savings
+
+### 4. Responsive Images Implementation
+
+Check for proper `srcset` and `sizes` attributes to serve appropriately sized images.
+
+**Example:**
+```html
+&lt;img
+  src=&quot;product-800.webp&quot;
+  srcset=&quot;product-400.webp 400w, 
+          product-800.webp 800w, 
+          product-1200.webp 1200w,
+          product-1600.webp 1600w&quot;
+  sizes=&quot;(max-width: 640px) 100vw,
+         (max-width: 1024px) 50vw,
+         33vw&quot;
+  alt=&quot;Wireless noise-cancelling headphones in matte black&quot;
+  width=&quot;800&quot;
+  height=&quot;600&quot;
+  loading=&quot;lazy&quot;
+&gt;
+```
+
+**Flag images without:**
+- `srcset` for images &gt; 400px wide
+- `sizes` attribute matching layout breakpoints
+- Device pixel ratio variants (1x, 2x for retina)
+
+### 5. Lazy Loading Strategy
+
+**Critical rules:**
+- ✅ `loading=&quot;lazy&quot;` on below-fold images
+- ❌ NEVER lazy-load LCP (Largest Contentful Paint) images
+- ❌ NEVER lazy-load above-fold images
+- ✅ Native lazy loading preferred over JavaScript libraries
+
+**Examples:**
+
+```html
+&lt;!-- ❌ BAD - Lazy loading hero image hurts LCP --&gt;
+&lt;img src=&quot;hero.webp&quot; loading=&quot;lazy&quot; alt=&quot;...&quot;&gt;
+
+&lt;!-- ✅ GOOD - Hero image loads immediately --&gt;
+&lt;img src=&quot;hero.webp&quot; fetchpriority=&quot;high&quot; alt=&quot;...&quot; width=&quot;1200&quot; height=&quot;630&quot;&gt;
+
+&lt;!-- ✅ GOOD - Below-fold image lazy loads --&gt;
+&lt;img src=&quot;testimonial.webp&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;...&quot; width=&quot;400&quot; height=&quot;400&quot;&gt;
+```
+
+**Flag:**
+- Hero/above-fold images with `loading=&quot;lazy&quot;` (critical error)
+- Below-fold images without `loading=&quot;lazy&quot;` (missed optimization)
+
+### 6. LCP Image Optimization
+
+**For hero/banner images:**
+
+```html
+&lt;img src=&quot;hero-banner.webp&quot; 
+     fetchpriority=&quot;high&quot; 
+     alt=&quot;Professional kitchen remodeling services in Seattle&quot;
+     width=&quot;1920&quot; 
+     height=&quot;1080&quot;&gt;
+```
+
+**Critical:**
+- Add `fetchpriority=&quot;high&quot;` to LCP image
+- NO `loading=&quot;lazy&quot;` on LCP image
+- Use optimal format (WebP/AVIF with JPEG fallback)
+- Include explicit dimensions
+
+### 7. Async Decoding for Non-Critical Images
+
+Prevent image decoding from blocking main thread:
+
+```html
+&lt;img src=&quot;gallery-item-3.webp&quot; 
+     alt=&quot;Finished basement renovation with home theater setup&quot; 
+     width=&quot;600&quot; 
+     height=&quot;400&quot; 
+     loading=&quot;lazy&quot; 
+     decoding=&quot;async&quot;&gt;
+```
+
+Add `decoding=&quot;async&quot;` to all images except LCP image.
+
+### 8. CLS Prevention
+
+**Every image needs dimensions to prevent layout shift:**
+
+```html
+&lt;!-- ✅ GOOD - Explicit dimensions --&gt;
+&lt;img src=&quot;author-photo.webp&quot; width=&quot;80&quot; height=&quot;80&quot; alt=&quot;Sarah Chen, Content Director&quot;&gt;
+
+&lt;!-- ✅ GOOD - CSS aspect ratio --&gt;
+&lt;img src=&quot;featured-image.webp&quot; style=&quot;aspect-ratio: 16/9&quot; alt=&quot;...&quot;&gt;
+
+&lt;!-- ✅ GOOD - Responsive with intrinsic aspect ratio --&gt;
+&lt;img src=&quot;hero.webp&quot; 
+     width=&quot;1200&quot; 
+     height=&quot;675&quot; 
+     style=&quot;width: 100%; height: auto;&quot; 
+     alt=&quot;...&quot;&gt;
+
+&lt;!-- ❌ BAD - No dimensions --&gt;
+&lt;img src=&quot;blog-image.webp&quot; alt=&quot;...&quot;&gt;
+```
+
+**Flag all images without:**
+- `width` and `height` attributes, OR
+- CSS `aspect-ratio` property
+
+### 9. SEO-Friendly File Naming
+
+**Naming conventions:**
+- Descriptive, hyphenated, lowercase
+- Include relevant keywords
+- No special characters or spaces
+- Extension matches actual format
+
+**Examples:**
+
+| ✅ Good | ❌ Bad |
+|---------|--------|
+| `blue-nike-running-shoes-mens.webp` | `IMG_1234.jpg` |
+| `kitchen-remodel-before-after.webp` | `image-final-v2.png` |
+| `seo-traffic-growth-chart-2024.webp` | `Screen Shot 2024-01-15.png` |
+| `chocolate-cake-recipe-close-up.webp` | `DSC_0456.JPG` |
+
+**Flag:**
+- Generic names (IMG_, DSC_, image_, photo_)
+- Uppercase extensions
+- Dates or version numbers in filenames
+- Spaces or special characters
+
+### 10. CDN and Delivery Optimization
+
+**Check for:**
+- Images served from CDN (different domain)
+- Cache headers (`Cache-Control`, `Expires`)
+- Compression headers (`Content-Encoding: gzip`)
+- Geographic distribution
+
+**Example CDN usage:**
+```html
+&lt;!-- ✅ Served from CDN --&gt;
+&lt;img src=&quot;https://cdn.example.com/images/product-photo.webp&quot; alt=&quot;...&quot;&gt;
+
+&lt;!-- ❌ Served from origin --&gt;
+&lt;img src=&quot;https://www.example.com/uploads/product-photo.jpg&quot; alt=&quot;...&quot;&gt;
+```
+
+## Output Format
+
+### Executive Summary
+
+```
+Image Audit Summary for: [URL/Page Name]
+Analyzed: [XX] total images
+Scan Date: [Date]
+
+Critical Issues: X
+Warnings: X
+Estimated Savings: XXX KB (XX%)
+```
+
+### Metrics Dashboard
+
+| Metric | Status | Count | Details |
+|--------|--------|-------|---------|
+| Total Images | ℹ️ | XX | - |
+| Missing Alt Text | ❌ | XX | SEO issue |
+| Poor Alt Quality | ⚠️ | XX | Generic/stuffed keywords |
+| Oversized Images | ⚠️ | XX | &gt; category threshold |
+| Legacy Formats | ⚠️ | XX | JPEG/PNG &rarr; WebP/AVIF |
+| Missing Dimensions | ❌ | XX | CLS risk |
+| LCP Image Issues | ❌ | XX | Performance killer |
+| Missing Lazy Loading | ⚠️ | XX | Below-fold images |
+| Improper Lazy Loading | ❌ | XX | Above-fold images |
+| No Responsive Images | ⚠️ | XX | Missing srcset |
+| Poor File Names | ⚠️ | XX | Generic/non-descriptive |
+| No CDN Usage | ⚠️ | XX | Delivery not optimized |
+
+### Priority Optimization List
+
+Sort by estimated impact (file size savings &times; page views):
+
+| Priority | Image | Current | Issues | Recommendation | Est. Savings |
+|----------|-------|---------|--------|----------------|--------------|
+| 🔴 Critical | hero-banner.jpg (LCP) | 850KB JPEG | Lazy loaded, wrong format, oversized | Convert to WebP, add fetchpriority=&quot;high&quot;, remove lazy loading | 650KB + LCP improvement |
+| 🔴 Critical | product-gallery-1.png | 1.2MB PNG | No dimensions, wrong format | Convert to WebP, add width/height | 900KB + prevent CLS |
+| 🟡 High | testimonial-photos/*.jpg (12 images) | 200-400KB each | Legacy format, no lazy loading | Batch convert to WebP, add lazy loading | 2.1MB total |
+| 🟡 High | blog-featured-*.jpg | 300-600KB JPEG | Missing srcset, oversized | Create responsive variants, optimize | 1.5MB total |
+| 🟢 Medium | icon-*.png (24 images) | 15-50KB each | Could be SVG or smaller WebP | Convert to SVG or compress to WebP | 800KB total |
+
+### Detailed Recommendations
+
+**1. Critical: Fix LCP Image (Immediate Action)**
+
+Current:
+```html
+&lt;img src=&quot;hero-banner.jpg&quot; loading=&quot;lazy&quot; alt=&quot;Kitchen remodeling&quot;&gt;
+```
+
+Optimized:
+```html
+&lt;picture&gt;
+  &lt;source srcset=&quot;hero-banner.avif&quot; type=&quot;image/avif&quot;&gt;
+  &lt;source srcset=&quot;hero-banner.webp&quot; type=&quot;image/webp&quot;&gt;
+  &lt;img src=&quot;hero-banner.jpg&quot; 
+       fetchpriority=&quot;high&quot; 
+       alt=&quot;Modern kitchen renovation with quartz countertops and stainless appliances&quot;
+       width=&quot;1920&quot; 
+       height=&quot;1080&quot;&gt;
+&lt;/picture&gt;
+```
+
+**Impact:** Improved LCP score, 76% smaller file (850KB &rarr; 200KB)
+
+**2. Convert Legacy Formats (High Impact)**
+
+- Convert XX JPEG images to WebP: ~XX% savings (~XXX KB)
+- Convert XX PNG images to WebP: ~XX% savings (~XXX KB)
+- Total estimated savings: XXX KB
+
+**3. Implement Responsive Images**
+
+Add `srcset` and `sizes` to XX large images:
+- Prevents mobile users from downloading desktop-sized images
+- Estimated mobile data savings: XXX KB per page load
+
+**4. Fix Alt Text Issues**
+
+XX images need alt text improvements:
+
+| Image | Current Alt | Issue | Suggested Alt |
+|-------|-------------|-------|---------------|
+| product-1.jpg | &quot;image&quot; | Too generic | &quot;Stainless steel espresso machine with built-in grinder&quot; |
+| team-photo.jpg | &quot;our team teamwork collaboration&quot; | Keyword stuffing | &quot;Marketing team collaborating in conference room&quot; |
+| logo.png | &quot;click here&quot; | Not descriptive | &quot;Acme Construction logo&quot; |
+
+**5. Add Lazy Loading**
+
+XX below-fold images should lazy load:
+```html
+&lt;!-- Add to images below fold --&gt;
+loading=&quot;lazy&quot; decoding=&quot;async&quot;
+```
+
+**6. Fix CLS Issues**
+
+XX images missing dimensions:
+```html
+&lt;!-- Add explicit dimensions --&gt;
+width=&quot;800&quot; height=&quot;600&quot;
+```
+
+**7. Rename Files**
+
+XX images have poor filenames:
+- `IMG_2847.jpg` &rarr; `customer-testimonial-sarah-chen.webp`
+- `Screen-Shot-2024.png` &rarr; `quarterly-revenue-growth-chart.webp`
+
+### Estimated Performance Impact
+
+**Before optimization:**
+- Total image weight: XXX KB
+- LCP: X.X seconds
+- CLS: 0.XX
+
+**After optimization:**
+- Total image weight: XXX KB (XX% reduction)
+- Estimated LCP improvement: -X.X seconds
+- Estimated CLS improvement: -0.XX
+
+**Page Speed Impact:**
+- Mobile: XX% faster
+- Desktop: XX% faster
+- First Contentful Paint: -XX ms
+- Total Blocking Time: -XX ms
+
+## Implementation Checklist
+
+- [ ] Convert hero/LCP image to WebP/AVIF with `fetchpriority=&quot;high&quot;`
+- [ ] Remove `loading=&quot;lazy&quot;` from above-fold images
+- [ ] Convert remaining JPEGs/PNGs to WebP
+- [ ] Add dimensions (width/height) to all images
+- [ ] Implement `srcset` for images &gt; 400px wide
+- [ ] Add `loading=&quot;lazy&quot;` to below-fold images
+- [ ] Add `decoding=&quot;async&quot;` to non-LCP images
+- [ ] Fix all missing/poor alt text
+- [ ] Rename files with descriptive names
+- [ ] Configure CDN if not already in use
+- [ ] Set up automated image optimization pipeline
+
+## Tools &amp; Resources
+
+**Recommended tools:**
+- **Compression:** Squoosh.app, TinyPNG, ImageOptim
+- **Format conversion:** cwebp (WebP), avifenc (AVIF)
+- **Responsive images:** Cloudinary, Imgix, sharp (Node.js)
+- **Testing:** Lighthouse, WebPageTest, Chrome DevTools
+- **Bulk processing:** ImageMagick, sharp, Squoosh CLI
+
+**Automation:**
+- Set up build pipeline to auto-convert images
+- Implement CDN with automatic format optimization
+- Use responsive image generation in CMS
+</pre>
+</div>
+      </div>
+
+      
+      <aside class="animate-fade-up delay-6">
+        <div class="lg:sticky lg:top-16 space-y-3">
+          
+          <div class="bg-surface-raised rounded-lg border border-border p-4">
+            <h3 class="text-[11px] font-semibold uppercase tracking-wider text-muted-light mb-3">REPOSITORIO</h3>
+            <a href="#" class="flex items-center gap-2.5 group">
+              <div class="w-8 h-8 rounded-md bg-surface-overlay border border-border flex items-center justify-center flex-shrink-0">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-muted group-hover:text-cyan transition-colors"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </div>
+              <div>
+                <div class="text-[13px] font-medium text-ink group-hover:text-cyan transition-colors">SEO Skills</div>
+                <div class="text-[11px] text-muted-light">Descarga y usas estas habilidades</div>
+              </div>
+            </a>
+          </div>
+
+          
+          <div class="bg-surface-raised rounded-lg border border-border p-4">
+            <h3 class="text-[11px] font-semibold uppercase tracking-wider text-muted-light mb-3">Compatible con:</h3>
+            <div class="flex flex-wrap gap-1.5">
+
+              <span class="px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-surface-overlay border border-border text-muted">Cursor</span>
+
+              <span class="px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-surface-overlay border border-border text-muted">V0</span>
+
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
+  
+  <footer class="border-t border-border">
+    <div class="max-w-[1200px] mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="font-display font-700 text-[11px] tracking-wide text-muted-light">SEO SKILLS</span>
+      </div>
+      <div class="text-[11px] text-muted-light">
+        Hecho en Stronglify por Jorge Jaramillo.
+      </div>
+    </div>
+  </footer>
+</div><script>
+function copyCommand() {
+      const text = 'Para descargarlo espero hacer eso git.com';
+      navigator.clipboard.writeText(text).then(() => {
+        const copyIcon = document.getElementById('copyIcon');
+        const checkIcon = document.getElementById('checkIcon');
+        const btn = document.getElementById('copyBtn');
+        copyIcon.classList.add('hidden');
+        checkIcon.classList.remove('hidden');
+        btn.classList.add('copy-success');
+        setTimeout(() => {
+          copyIcon.classList.remove('hidden');
+          checkIcon.classList.add('hidden');
+          btn.classList.remove('copy-success');
+        }, 1500);
+      });
+    }
+</script></body>
+</html>
