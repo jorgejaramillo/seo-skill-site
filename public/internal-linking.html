@@ -69,7 +69,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         
         <a href="https://seo-skills.com/informacion" class="text-[13px] text-muted font-medium hover:text-cyan transition-colors">Información</a>
         
-        <a href="https://seo-skills.com/usar" class="text-[13px] text-muted font-medium hover:text-cyan transition-colors">¿Cómo usarlo?</a>
+        <a href="https://seo-skills.com/usar" class="text-[13px] text-muted font-medium hover:text-cyan transition-colors">Usarlo</a>
              
         <a href="https://github.com/jorgejaramillo/seoskills" class="text-[13px] text-muted font-medium hover:text-cyan transition-colors flex items-center gap-1.5">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -85,7 +85,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span>/</span>
       <span class="text-muted">SEO Técnico</span>
       <span>/</span>
-      <span class="text-ink font-medium">Análisis SEO de las imágenes</span>
+      <span class="text-ink font-medium">Análisis de los enlaces internos</span>
     </nav>
   </div>
 
@@ -100,10 +100,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="flex items-center gap-2 mb-2">
             <span class="inline-flex px-2 py-0.5 rounded text-[11px] font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">SEO Técnico</span>          </div>
           <h1 class="font-display font-800 text-[26px] lg:text-[32px] tracking-tight text-ink-strong leading-tight">
-            Análisis SEO de las imágenes
+            Análisis de los enlaces internos
           </h1>
           <p class="text-muted text-[15px] mt-2 max-w-2xl leading-relaxed">
-            Y este explica un poco sí y un poco no
+            Analiza los enlaces internos y externos de un sitio web. Con esta habilidad puedes ver oportunidades de inter linking.
           </p>
         </div>
 
@@ -111,7 +111,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="animate-fade-up delay-4 command-bar bg-surface-raised border border-border rounded-lg px-4 py-3 flex items-center justify-between mb-6">
           <div class="flex items-center gap-3 overflow-hidden">
             <span class="text-muted-light font-mono text-[15px] select-none">$</span>
-            <code class="font-mono text-[15px] text-ink font-medium truncate" id="commandText">Para descargarlo espero hacer eso git.com</code>
+            <code class="font-mono text-[15px] text-ink font-medium truncate max-w-xl block" id="commandText">https://github.com/jorgejaramillo/seoskills/blob/master/internal-linking/SKILL.md</code>
           </div>
           <button onclick="copyCommand()" id="copyBtn" class="flex-shrink-0 ml-3 p-1.5 rounded-md hover:bg-cyan-light text-muted-light hover:text-cyan transition-all" title="Copiar comando">
             <svg id="copyIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -129,399 +129,186 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <pre class="max-3xl whitespace-pre-wrap break-words font-mono text-sm leading-relaxed bg-indigo-950 p-6 rounded-xl">
 &lt;!-- Updated: 2026-02-14 --&gt;
 ---
-name: seo-images
+name: internal-linking
 description: &gt;
-  Image optimization analysis for SEO and performance. Checks alt text, file
-  sizes, formats, responsive images, lazy loading, and CLS prevention. Use when
-  user says &quot;image optimization&quot;, &quot;alt text&quot;, &quot;image SEO&quot;, &quot;image size&quot;,
-  &quot;optimize images&quot;, &quot;image performance&quot;, or &quot;image audit&quot;.
+  Analyze and optimize a site's internal link structure for SEO. Use whenever
+  the user mentions internal linking, link structure, orphan pages, topic
+  clusters, anchor text optimization, link equity distribution, or site
+  architecture for SEO. Also trigger when someone asks &quot;how do I link my pages
+  better?&quot; or &quot;which pages need more internal links?&quot; or shares a sitemap and
+  wants linking advice. This skill diagnoses linking issues and recommends
+  specific link additions&mdash;it does not modify the site unless explicitly asked.
 ---
 
-# Image Optimization Analysis
+# Internal Linking Optimizer
 
-Analyze images on a webpage or site for SEO and performance optimization. Provide actionable recommendations sorted by impact.
+You help users improve SEO through smarter internal linking.
 
-## Input
+Internal links are one of the few ranking levers site owners fully control. They tell search engines which pages matter, how topics relate, and where authority should flow. A well-linked site helps both crawlers and users find content &mdash; a poorly-linked site hides its own best pages.
 
-Expects one of:
-- URL to analyze (fetches and parses HTML)
-- HTML file or content
-- List of image URLs to audit
+---
 
-## Analysis Checklist
+## CRITICAL: Data Extraction Method
 
-### 1. Alt Text Quality
+**WebFetch strips the HTML `&lt;head&gt;` section** when converting to markdown. This means it CANNOT see canonical tags, hreflang, or meta robots directives &mdash; all of which affect internal linking analysis (e.g., detecting canonicalized duplicates or noindex pages that shouldn't receive links).
 
-Every `&lt;img&gt;` must have descriptive alt text (except decorative images with `role=&quot;presentation&quot;` or `alt=&quot;&quot;`).
+### Correct approach for each page analyzed:
 
-**Quality criteria:**
-- Describes image content, not filename
-- Natural keyword inclusion (no stuffing)
-- Length: 10-125 characters
-- Context-appropriate
-
-**Examples:**
-
-| ✅ Good | ❌ Bad | Why |
-|---------|--------|-----|
-| &quot;Chocolate labrador puppy playing with tennis ball in backyard&quot; | &quot;IMG_2847.jpg&quot; | Descriptive vs filename |
-| &quot;Graph showing 40% increase in organic traffic from Q3 to Q4&quot; | &quot;graph chart data analytics metrics&quot; | Natural vs keyword stuffing |
-| &quot;Black leather office chair with ergonomic lumbar support&quot; | &quot;Click here to see more&quot; | Descriptive vs call-to-action |
-| &quot;Sunset over Golden Gate Bridge, San Francisco&quot; | &quot;Photo&quot; | Specific vs generic |
-
-**Decorative images** (dividers, backgrounds, spacers):
-```html
-&lt;img src=&quot;divider.png&quot; role=&quot;presentation&quot; alt=&quot;&quot;&gt;
+**Use `curl` via Bash for `&lt;head&gt;` tags:**
+```bash
+curl -sL [URL] | grep -i -E '(rel=&quot;canonical&quot;|meta name=&quot;robots&quot;|hreflang|&lt;title)'
 ```
 
-### 2. File Size Optimization
-
-**Tiered thresholds by image type:**
-
-| Image Category | Target | Warning | Critical | Examples |
-|----------------|--------|---------|----------|----------|
-| Thumbnails / Icons | &lt; 50KB | &gt; 100KB | &gt; 200KB | Product thumbnails, author avatars, category icons |
-| Content images | &lt; 100KB | &gt; 200KB | &gt; 500KB | Blog photos, product images, gallery items |
-| Hero / Banner images | &lt; 200KB | &gt; 300KB | &gt; 700KB | Above-fold hero images, full-width banners |
-| Background images | &lt; 150KB | &gt; 250KB | &gt; 600KB | Section backgrounds, pattern fills |
-
-**Flag images exceeding thresholds and estimate compression savings.**
-
-### 3. Modern Format Usage
-
-**Recommended format hierarchy:**
-
-| Format | Browser Support | Compression | Use Case | File Size Comparison |
-|--------|-----------------|-------------|----------|---------------------|
-| AVIF | 93.8% | Best | Photos, complex images | 50% smaller than JPEG |
-| WebP | 95.3% | Excellent | Default for most images | 25-35% smaller than JPEG |
-| JPEG | 100% | Good | Fallback for photos | Baseline |
-| PNG | 100% | Lossless | Graphics with transparency | Larger than WebP |
-| SVG | 100% | Vector | Icons, logos, simple graphics | Scales without quality loss |
-
-**Preferred `&lt;picture&gt;` element pattern:**
-
-```html
-&lt;picture&gt;
-  &lt;source srcset=&quot;hero-image.avif&quot; type=&quot;image/avif&quot;&gt;
-  &lt;source srcset=&quot;hero-image.webp&quot; type=&quot;image/webp&quot;&gt;
-  &lt;img src=&quot;hero-image.jpg&quot; alt=&quot;Modern living room with minimalist furniture&quot; 
-       width=&quot;1200&quot; height=&quot;675&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;
-&lt;/picture&gt;
-```
-
-**Flag:**
-- JPEGs/PNGs that should be WebP/AVIF
-- Missing fallback formats in `&lt;picture&gt;` elements
-- Estimate conversion savings
-
-### 4. Responsive Images Implementation
-
-Check for proper `srcset` and `sizes` attributes to serve appropriately sized images.
-
-**Example:**
-```html
-&lt;img
-  src=&quot;product-800.webp&quot;
-  srcset=&quot;product-400.webp 400w, 
-          product-800.webp 800w, 
-          product-1200.webp 1200w,
-          product-1600.webp 1600w&quot;
-  sizes=&quot;(max-width: 640px) 100vw,
-         (max-width: 1024px) 50vw,
-         33vw&quot;
-  alt=&quot;Wireless noise-cancelling headphones in matte black&quot;
-  width=&quot;800&quot;
-  height=&quot;600&quot;
-  loading=&quot;lazy&quot;
-&gt;
-```
-
-**Flag images without:**
-- `srcset` for images &gt; 400px wide
-- `sizes` attribute matching layout breakpoints
-- Device pixel ratio variants (1x, 2x for retina)
-
-### 5. Lazy Loading Strategy
-
-**Critical rules:**
-- ✅ `loading=&quot;lazy&quot;` on below-fold images
-- ❌ NEVER lazy-load LCP (Largest Contentful Paint) images
-- ❌ NEVER lazy-load above-fold images
-- ✅ Native lazy loading preferred over JavaScript libraries
-
-**Examples:**
-
-```html
-&lt;!-- ❌ BAD - Lazy loading hero image hurts LCP --&gt;
-&lt;img src=&quot;hero.webp&quot; loading=&quot;lazy&quot; alt=&quot;...&quot;&gt;
-
-&lt;!-- ✅ GOOD - Hero image loads immediately --&gt;
-&lt;img src=&quot;hero.webp&quot; fetchpriority=&quot;high&quot; alt=&quot;...&quot; width=&quot;1200&quot; height=&quot;630&quot;&gt;
-
-&lt;!-- ✅ GOOD - Below-fold image lazy loads --&gt;
-&lt;img src=&quot;testimonial.webp&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;...&quot; width=&quot;400&quot; height=&quot;400&quot;&gt;
-```
-
-**Flag:**
-- Hero/above-fold images with `loading=&quot;lazy&quot;` (critical error)
-- Below-fold images without `loading=&quot;lazy&quot;` (missed optimization)
-
-### 6. LCP Image Optimization
-
-**For hero/banner images:**
-
-```html
-&lt;img src=&quot;hero-banner.webp&quot; 
-     fetchpriority=&quot;high&quot; 
-     alt=&quot;Professional kitchen remodeling services in Seattle&quot;
-     width=&quot;1920&quot; 
-     height=&quot;1080&quot;&gt;
-```
-
-**Critical:**
-- Add `fetchpriority=&quot;high&quot;` to LCP image
-- NO `loading=&quot;lazy&quot;` on LCP image
-- Use optimal format (WebP/AVIF with JPEG fallback)
-- Include explicit dimensions
-
-### 7. Async Decoding for Non-Critical Images
-
-Prevent image decoding from blocking main thread:
-
-```html
-&lt;img src=&quot;gallery-item-3.webp&quot; 
-     alt=&quot;Finished basement renovation with home theater setup&quot; 
-     width=&quot;600&quot; 
-     height=&quot;400&quot; 
-     loading=&quot;lazy&quot; 
-     decoding=&quot;async&quot;&gt;
-```
-
-Add `decoding=&quot;async&quot;` to all images except LCP image.
-
-### 8. CLS Prevention
-
-**Every image needs dimensions to prevent layout shift:**
-
-```html
-&lt;!-- ✅ GOOD - Explicit dimensions --&gt;
-&lt;img src=&quot;author-photo.webp&quot; width=&quot;80&quot; height=&quot;80&quot; alt=&quot;Sarah Chen, Content Director&quot;&gt;
-
-&lt;!-- ✅ GOOD - CSS aspect ratio --&gt;
-&lt;img src=&quot;featured-image.webp&quot; style=&quot;aspect-ratio: 16/9&quot; alt=&quot;...&quot;&gt;
-
-&lt;!-- ✅ GOOD - Responsive with intrinsic aspect ratio --&gt;
-&lt;img src=&quot;hero.webp&quot; 
-     width=&quot;1200&quot; 
-     height=&quot;675&quot; 
-     style=&quot;width: 100%; height: auto;&quot; 
-     alt=&quot;...&quot;&gt;
-
-&lt;!-- ❌ BAD - No dimensions --&gt;
-&lt;img src=&quot;blog-image.webp&quot; alt=&quot;...&quot;&gt;
-```
-
-**Flag all images without:**
-- `width` and `height` attributes, OR
-- CSS `aspect-ratio` property
-
-### 9. SEO-Friendly File Naming
-
-**Naming conventions:**
-- Descriptive, hyphenated, lowercase
-- Include relevant keywords
-- No special characters or spaces
-- Extension matches actual format
-
-**Examples:**
-
-| ✅ Good | ❌ Bad |
-|---------|--------|
-| `blue-nike-running-shoes-mens.webp` | `IMG_1234.jpg` |
-| `kitchen-remodel-before-after.webp` | `image-final-v2.png` |
-| `seo-traffic-growth-chart-2024.webp` | `Screen Shot 2024-01-15.png` |
-| `chocolate-cake-recipe-close-up.webp` | `DSC_0456.JPG` |
-
-**Flag:**
-- Generic names (IMG_, DSC_, image_, photo_)
-- Uppercase extensions
-- Dates or version numbers in filenames
-- Spaces or special characters
-
-### 10. CDN and Delivery Optimization
-
-**Check for:**
-- Images served from CDN (different domain)
-- Cache headers (`Cache-Control`, `Expires`)
-- Compression headers (`Content-Encoding: gzip`)
-- Geographic distribution
-
-**Example CDN usage:**
-```html
-&lt;!-- ✅ Served from CDN --&gt;
-&lt;img src=&quot;https://cdn.example.com/images/product-photo.webp&quot; alt=&quot;...&quot;&gt;
-
-&lt;!-- ❌ Served from origin --&gt;
-&lt;img src=&quot;https://www.example.com/uploads/product-photo.jpg&quot; alt=&quot;...&quot;&gt;
-```
-
-## Output Format
-
-### Executive Summary
-
-```
-Image Audit Summary for: [URL/Page Name]
-Analyzed: [XX] total images
-Scan Date: [Date]
-
-Critical Issues: X
-Warnings: X
-Estimated Savings: XXX KB (XX%)
-```
-
-### Metrics Dashboard
-
-| Metric | Status | Count | Details |
-|--------|--------|-------|---------|
-| Total Images | ℹ️ | XX | - |
-| Missing Alt Text | ❌ | XX | SEO issue |
-| Poor Alt Quality | ⚠️ | XX | Generic/stuffed keywords |
-| Oversized Images | ⚠️ | XX | &gt; category threshold |
-| Legacy Formats | ⚠️ | XX | JPEG/PNG &rarr; WebP/AVIF |
-| Missing Dimensions | ❌ | XX | CLS risk |
-| LCP Image Issues | ❌ | XX | Performance killer |
-| Missing Lazy Loading | ⚠️ | XX | Below-fold images |
-| Improper Lazy Loading | ❌ | XX | Above-fold images |
-| No Responsive Images | ⚠️ | XX | Missing srcset |
-| Poor File Names | ⚠️ | XX | Generic/non-descriptive |
-| No CDN Usage | ⚠️ | XX | Delivery not optimized |
-
-### Priority Optimization List
-
-Sort by estimated impact (file size savings &times; page views):
-
-| Priority | Image | Current | Issues | Recommendation | Est. Savings |
-|----------|-------|---------|--------|----------------|--------------|
-| 🔴 Critical | hero-banner.jpg (LCP) | 850KB JPEG | Lazy loaded, wrong format, oversized | Convert to WebP, add fetchpriority=&quot;high&quot;, remove lazy loading | 650KB + LCP improvement |
-| 🔴 Critical | product-gallery-1.png | 1.2MB PNG | No dimensions, wrong format | Convert to WebP, add width/height | 900KB + prevent CLS |
-| 🟡 High | testimonial-photos/*.jpg (12 images) | 200-400KB each | Legacy format, no lazy loading | Batch convert to WebP, add lazy loading | 2.1MB total |
-| 🟡 High | blog-featured-*.jpg | 300-600KB JPEG | Missing srcset, oversized | Create responsive variants, optimize | 1.5MB total |
-| 🟢 Medium | icon-*.png (24 images) | 15-50KB each | Could be SVG or smaller WebP | Convert to SVG or compress to WebP | 800KB total |
-
-### Detailed Recommendations
-
-**1. Critical: Fix LCP Image (Immediate Action)**
-
-Current:
-```html
-&lt;img src=&quot;hero-banner.jpg&quot; loading=&quot;lazy&quot; alt=&quot;Kitchen remodeling&quot;&gt;
-```
-
-Optimized:
-```html
-&lt;picture&gt;
-  &lt;source srcset=&quot;hero-banner.avif&quot; type=&quot;image/avif&quot;&gt;
-  &lt;source srcset=&quot;hero-banner.webp&quot; type=&quot;image/webp&quot;&gt;
-  &lt;img src=&quot;hero-banner.jpg&quot; 
-       fetchpriority=&quot;high&quot; 
-       alt=&quot;Modern kitchen renovation with quartz countertops and stainless appliances&quot;
-       width=&quot;1920&quot; 
-       height=&quot;1080&quot;&gt;
-&lt;/picture&gt;
-```
-
-**Impact:** Improved LCP score, 76% smaller file (850KB &rarr; 200KB)
-
-**2. Convert Legacy Formats (High Impact)**
-
-- Convert XX JPEG images to WebP: ~XX% savings (~XXX KB)
-- Convert XX PNG images to WebP: ~XX% savings (~XXX KB)
-- Total estimated savings: XXX KB
-
-**3. Implement Responsive Images**
-
-Add `srcset` and `sizes` to XX large images:
-- Prevents mobile users from downloading desktop-sized images
-- Estimated mobile data savings: XXX KB per page load
-
-**4. Fix Alt Text Issues**
-
-XX images need alt text improvements:
-
-| Image | Current Alt | Issue | Suggested Alt |
-|-------|-------------|-------|---------------|
-| product-1.jpg | &quot;image&quot; | Too generic | &quot;Stainless steel espresso machine with built-in grinder&quot; |
-| team-photo.jpg | &quot;our team teamwork collaboration&quot; | Keyword stuffing | &quot;Marketing team collaborating in conference room&quot; |
-| logo.png | &quot;click here&quot; | Not descriptive | &quot;Acme Construction logo&quot; |
-
-**5. Add Lazy Loading**
-
-XX below-fold images should lazy load:
-```html
-&lt;!-- Add to images below fold --&gt;
-loading=&quot;lazy&quot; decoding=&quot;async&quot;
-```
-
-**6. Fix CLS Issues**
-
-XX images missing dimensions:
-```html
-&lt;!-- Add explicit dimensions --&gt;
-width=&quot;800&quot; height=&quot;600&quot;
-```
-
-**7. Rename Files**
-
-XX images have poor filenames:
-- `IMG_2847.jpg` &rarr; `customer-testimonial-sarah-chen.webp`
-- `Screen-Shot-2024.png` &rarr; `quarterly-revenue-growth-chart.webp`
-
-### Estimated Performance Impact
-
-**Before optimization:**
-- Total image weight: XXX KB
-- LCP: X.X seconds
-- CLS: 0.XX
-
-**After optimization:**
-- Total image weight: XXX KB (XX% reduction)
-- Estimated LCP improvement: -X.X seconds
-- Estimated CLS improvement: -0.XX
-
-**Page Speed Impact:**
-- Mobile: XX% faster
-- Desktop: XX% faster
-- First Contentful Paint: -XX ms
-- Total Blocking Time: -XX ms
-
-## Implementation Checklist
-
-- [ ] Convert hero/LCP image to WebP/AVIF with `fetchpriority=&quot;high&quot;`
-- [ ] Remove `loading=&quot;lazy&quot;` from above-fold images
-- [ ] Convert remaining JPEGs/PNGs to WebP
-- [ ] Add dimensions (width/height) to all images
-- [ ] Implement `srcset` for images &gt; 400px wide
-- [ ] Add `loading=&quot;lazy&quot;` to below-fold images
-- [ ] Add `decoding=&quot;async&quot;` to non-LCP images
-- [ ] Fix all missing/poor alt text
-- [ ] Rename files with descriptive names
-- [ ] Configure CDN if not already in use
-- [ ] Set up automated image optimization pipeline
-
-## Tools &amp; Resources
-
-**Recommended tools:**
-- **Compression:** Squoosh.app, TinyPNG, ImageOptim
-- **Format conversion:** cwebp (WebP), avifenc (AVIF)
-- **Responsive images:** Cloudinary, Imgix, sharp (Node.js)
-- **Testing:** Lighthouse, WebPageTest, Chrome DevTools
-- **Bulk processing:** ImageMagick, sharp, Squoosh CLI
-
-**Automation:**
-- Set up build pipeline to auto-convert images
-- Implement CDN with automatic format optimization
-- Use responsive image generation in CMS
+**Use WebFetch for body content:** internal links, anchor text, navigation, footer, and visible page structure.
+
+**NEVER report canonical tags or meta robots as &quot;not found&quot; based solely on WebFetch.** Always verify with `curl`.
+
+---
+
+## Before You Start
+
+Understand the scope before diving in:
+
+1. **What's the goal?** Full link audit, fix specific pages, or plan links for new content?
+2. **Site size?** A 30-page site needs different treatment than a 5,000-page site.
+3. **What data is available?** Sitemap, crawl data, analytics, or just a list of URLs?
+
+If the user provides a URL or sitemap, work with that. If data is limited, state assumptions and proceed &mdash; partial analysis is better than no analysis.
+
+### Getting Data
+
+Adapt to what's available:
+
+- **With crawl data or sitemap**: Map the full link graph, identify orphans, calculate link distribution.
+- **With analytics**: Prioritize by traffic &mdash; fix linking issues on pages that already get visitors first.
+- **With just URLs or content**: Analyze topical relevance and recommend contextual links.
+- **Manual only**: Ask for key page URLs, content categories, and topic clusters. Note which findings come from analysis vs. inference.
+
+---
+
+## Core Analysis Areas
+
+Work through whichever areas are relevant to the user's request. Not every audit needs all sections.
+
+### 1. Link Distribution Overview
+
+Map how internal links are spread across the site. The goal: important pages should have more internal links pointing to them, and no valuable page should be an orphan.
+
+Look for:
+- **Orphan pages** (zero internal links) &mdash; these are invisible to crawlers navigating the site
+- **Under-linked important pages** &mdash; high-value pages with few internal links
+- **Over-concentrated linking** &mdash; homepage or nav pages hoarding most links while deeper content starves
+- **Average links per page** &mdash; context for whether the site links too little or too much
+
+Report the distribution shape: is linking top-heavy (all links go to a few pages), flat (evenly spread), or scattered?
+
+### 2. Orphan Page Detection
+
+Orphan pages are the highest-priority fix because they're essentially hidden from search engine crawlers following internal links.
+
+For each orphan found, classify by priority:
+- **High priority**: Has traffic or rankings despite being orphaned &mdash; linking to it will amplify existing performance
+- **Medium priority**: Relevant content that should be discoverable &mdash; link from related pages
+- **Low priority**: Outdated or thin content &mdash; consider redirecting or removing instead of linking
+
+Always recommend *specific source pages* to link from, not just &quot;add links.&quot;
+
+### 3. Topic Cluster Linking
+
+Topic clusters work when the pillar page and cluster articles are tightly interlinked. Check for:
+
+- Does the pillar link to all its cluster articles?
+- Does each cluster article link back to the pillar?
+- Do related cluster articles cross-link to each other?
+- Are there cluster articles that exist but aren't connected to any pillar?
+
+Map the current state (what's linked, what's missing) and recommend the specific links to add. Think of it as closing gaps in a web &mdash; every piece of the cluster should be reachable from every other piece within 1-2 clicks.
+
+### 4. Anchor Text Analysis
+
+Anchor text tells search engines what the target page is about. Problems to look for:
+
+- **Generic anchors** (&quot;click here&quot;, &quot;read more&quot;, &quot;this article&quot;) &mdash; wasted signals
+- **Over-optimized anchors** &mdash; same exact-match keyword used repeatedly, which looks manipulative
+- **Mismatched anchors** &mdash; anchor text doesn't describe the target page's content
+- **No variety** &mdash; all links to a page use identical text
+
+A healthy anchor text profile for any target page should roughly follow:
+- Exact match keyword: 10&ndash;20%
+- Partial match / variations: 30&ndash;40%
+- Branded or natural phrases: 20&ndash;30%
+- Generic / contextual: 10&ndash;20%
+
+When recommending anchor text changes, suggest 3-4 variations for each target page.
+
+### 5. Contextual Link Opportunities
+
+Find places in existing content where a relevant internal link could naturally be added. This is where the biggest quick wins usually are.
+
+For each opportunity, provide:
+- **Source page** and approximate location (which section or paragraph)
+- **Target page** to link to
+- **Suggested anchor text**
+- **Why this link makes sense** (topical match, user journey, authority distribution)
+
+Prioritize opportunities where:
+- The source page has high authority or traffic (link passes more value)
+- The target page needs a ranking boost
+- The topical connection is strong and natural
+
+---
+
+## Prioritization
+
+Not all link changes are equal. Rank recommendations by impact:
+
+1. **Fix orphan pages with existing traffic/rankings** &mdash; immediate ROI
+2. **Link to under-linked money pages** from high-authority pages &mdash; direct ranking benefit
+3. **Complete topic cluster connections** &mdash; strengthens topical authority
+4. **Replace generic anchor text** on high-value links &mdash; improves signal quality
+5. **Add contextual links in high-traffic content** &mdash; leverages existing audience
+6. **Navigation and footer adjustments** &mdash; site-wide impact but lower per-link value
+
+---
+
+## Output Guidelines
+
+Adapt the format to the request:
+
+- **Full audit**: Start with an overview (total pages, total links, average links/page, orphan count), then findings by area, then a prioritized action plan.
+- **Specific page optimization**: Focus on links to add and links to request from other pages.
+- **New content planning**: Recommend which existing pages to link from and to, with anchor text.
+
+For every link recommendation, always include: source page, target page, and suggested anchor text. Vague advice like &quot;add more internal links&quot; is not useful &mdash; be specific.
+
+### Validation Checks
+
+Before finalizing output, verify:
+- Every recommendation cites a specific source page, target page, and anchor text
+- Orphan page lists include URLs and clear next steps
+- Data source is stated (crawl data, analytics, user-provided, or inferred)
+- Recommendations are prioritized, not just listed
+
+---
+
+## Example
+
+**User**: &quot;Find internal linking opportunities for my blog post about email marketing best practices&quot;
+
+**Good output structure**:
+
+1. Current state: The post at `/blog/email-marketing-best-practices/` has only 2 internal links.
+
+2. Links to add from this post:
+   - &quot;building your email list&quot; &rarr; `/blog/grow-email-list/` (paragraph 2, topical match)
+   - &quot;write compelling subject lines&quot; &rarr; `/blog/email-subject-lines/` (paragraph 5)
+   - &quot;segment your audience&quot; &rarr; `/blog/email-segmentation-guide/` (segmentation section)
+
+3. Pages that should link TO this post:
+   - `/blog/digital-marketing-guide/` &mdash; email section, anchor: &quot;email marketing best practices&quot;
+   - `/services/marketing-services/` &mdash; related content area, anchor: &quot;email marketing strategies&quot;
+
+4. Priority: Add the 3 outbound links first (you control the page), then request inbound links from the related pages.
 </pre>
 </div>
       </div>
@@ -573,7 +360,7 @@ XX images have poor filenames:
   </footer>
 </div><script>
 function copyCommand() {
-      const text = 'Para descargarlo espero hacer eso git.com';
+      const text = 'https:\/\/github.com\/jorgejaramillo\/seoskills\/blob\/master\/internal-linking\/SKILL.md';
       navigator.clipboard.writeText(text).then(() => {
         const copyIcon = document.getElementById('copyIcon');
         const checkIcon = document.getElementById('checkIcon');
