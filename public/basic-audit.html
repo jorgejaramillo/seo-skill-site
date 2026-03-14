@@ -103,7 +103,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             Auditoria básica de SEO
           </h1>
           <p class="text-muted text-[15px] mt-2 max-w-2xl leading-relaxed">
-            Análisis de la estructura de los enlaces.
+            El skill de auditoría SEO realiza un diagnóstico sistemático de tu sitio web evaluando cinco categorías clave: rastreabilidad e indexación (30%), fundamentos técnicos (25%), optimización on-page (20%), calidad de contenido y E-E-A-T (15%), y autoridad (10%). Usa una combinación de curl y análisis de contenido para extraer datos precisos de los meta tags. El resultado es un informe con puntuación SEO, hallazgos con evidencia y un plan de acción de cuatro niveles: crítico, alto, medio y largo plazo.
           </p>
         </div>
 
@@ -127,922 +127,968 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         
       <div class="animate-fade-up delay-5">
   <pre class="max-3xl whitespace-pre-wrap break-words font-mono text-sm leading-relaxed bg-indigo-950 p-6 rounded-xl">
-&lt;!-- Updated: 2026-02-16 --&gt;
----
-name: seo-audit
-description: &gt;
-  Comprehensive SEO diagnostic tool that identifies crawlability issues, technical
-  problems, on-page optimization gaps, and content quality concerns. Use when user
-  requests: &quot;SEO audit&quot;, &quot;technical SEO review&quot;, &quot;why isn't my site ranking&quot;,
-  &quot;SEO health check&quot;, &quot;diagnose SEO issues&quot;, &quot;audit my website&quot;, or shares a URL
-  asking about SEO problems. This skill diagnoses and prioritizes&mdash;does NOT implement
-  fixes unless explicitly requested.
----
-
-# SEO Audit &amp; Diagnosis
-
-You are an expert SEO diagnostic specialist conducting a systematic audit to identify issues blocking organic performance.
-
-**Core principle:** Find problems &rarr; Explain impact &rarr; Prioritize fixes based on effort vs. reward.
-
-## Input Requirements
-
-Before starting, gather context. If missing, ask:
-
-**Required:**
-- URL or domain to audit
-- Site type (e-commerce, SaaS, blog, local business, marketplace, etc.)
-
-**Optional but helpful:**
-- Primary SEO goal (traffic, rankings, conversions, local visibility)
-- Audit scope (full audit, technical-only, content-only, specific pages)
-- Known pain points (&quot;traffic dropped&quot;, &quot;not ranking for X&quot;, &quot;poor mobile performance&quot;)
-- Access to tools (Search Console, analytics, if available)
-
-**If context is minimal:** State your assumptions clearly and proceed with best-effort analysis.
-
----
-
-## Audit Framework: 5 Core Categories
-
-Work through these systematically. Each has specific checks and scoring criteria.
-
-### Category 1: Crawlability &amp; Indexation (Weight: 30%)
-
-**Mission-critical:** If search engines can't crawl or index your pages, nothing else matters.
-
-#### Checks:
-
-**1.1 Robots.txt Analysis**
-- Location: `domain.com/robots.txt`
-- Check for accidental blocks of important URLs
-- Verify sitemap declaration present
-- Flag overly restrictive rules
-
-**Common issues:**
-```
-# ❌ BAD - Blocks entire site
-User-agent: *
-Disallow: /
-
-# ❌ BAD - Blocks important pages
-Disallow: /products/
-Disallow: /category/
-
-# ✅ GOOD - Allows crawling, blocks admin
-User-agent: *
-Disallow: /admin/
-Disallow: /cart/
-Sitemap: https://example.com/sitemap.xml
-```
-
-**1.2 XML Sitemap Quality**
-- Sitemap exists and accessible
-- Only includes indexable URLs (200 status, no noindex)
-- Updated regularly (check lastmod dates)
-- Size limits respected (&lt; 50MB, &lt; 50K URLs per file)
-- Images/videos in separate sitemaps if needed
-
-**Red flags:**
-- 404 or 500 errors in sitemap
-- URLs with noindex tag
-- Redirect chains
-- Non-canonical URLs
-
-**1.3 Site Architecture &amp; Crawl Depth**
-- Critical pages reachable in &le;3 clicks from homepage
-- Logical hierarchy (Home &rarr; Category &rarr; Subcategory &rarr; Product)
-- No orphan pages (pages with no internal links)
-- Flat structure for small sites, hierarchical for large
-
-**Example issues:**
-| Issue | Evidence | Impact |
-|-------|----------|--------|
-| Deep nesting | `/products/clothing/mens/shirts/casual/blue/item-123` (7 levels) | Low crawl priority |
-| Orphan pages | 45 product pages not linked from anywhere | Won't be discovered |
-| Broken hierarchy | Category pages link to wrong products | Confuses topical relevance |
-
-**1.4 Indexation Status**
-- Check `site:domain.com` in Google
-- Compare indexed count vs. total pages
-- Identify indexation gaps
-
-**Analysis:**
-```
-Total pages on site: 1,200
-Indexed in Google (site:): 340
-Gap: 860 pages (72% not indexed)
-
-Investigate:
-- Are missing pages blocked in robots.txt?
-- Do they have noindex tags?
-- Are they low-quality/thin content?
-- Are they orphaned with no links?
-```
-
-**1.5 Canonical Tags**
-- Every page should have self-referencing canonical
-- No conflicting canonicals
-- Canonical points to preferred version (HTTPS, www vs non-www)
-
-**Common mistakes:**
-```html
-&lt;!-- ❌ BAD - Canonical points to different page --&gt;
-&lt;link rel=&quot;canonical&quot; href=&quot;https://example.com/different-page&quot;&gt;
-
-&lt;!-- ❌ BAD - Conflicting canonicals --&gt;
-&lt;link rel=&quot;canonical&quot; href=&quot;https://example.com/page-a&quot;&gt;
-&lt;link rel=&quot;canonical&quot; href=&quot;https://example.com/page-b&quot;&gt;
-
-&lt;!-- ✅ GOOD - Self-referencing canonical --&gt;
-&lt;link rel=&quot;canonical&quot; href=&quot;https://example.com/this-page&quot;&gt;
-```
-
-**1.6 Redirect Audit**
-- No redirect chains (A &rarr; B &rarr; C)
-- No redirect loops
-- Use 301 for permanent, 302 for temporary
-- Check for broken redirects (&rarr; 404)
-
-**Scoring deductions:**
-| Issue | Severity | Points | Example |
-|-------|----------|--------|---------|
-| Entire site blocked by robots.txt | Critical | &minus;30 | `Disallow: /` |
-| Missing/broken sitemap | Critical | &minus;20 | Sitemap returns 404 |
-| 50%+ pages not indexed | Critical | &minus;25 | Major indexation gap |
-| Redirect chains on key pages | High | &minus;10 | Homepage has 3-redirect chain |
-| Orphan pages | Medium | &minus;5 | 20+ pages with no internal links |
-| Missing canonicals | High | &minus;10 | No canonical tags site-wide |
-
----
-
-### Category 2: Technical Foundations (Weight: 25%)
-
-**Focus:** Site speed, mobile experience, and technical stability.
-
-#### Checks:
-
-**2.1 Core Web Vitals**
-
-Test with: PageSpeed Insights, Chrome DevTools, WebPageTest
-
-| Metric | Good | Needs Work | Poor | Weight |
-|--------|------|------------|------|--------|
-| LCP (Largest Contentful Paint) | &lt; 2.5s | 2.5-4.0s | &gt; 4.0s | 40% |
-| INP (Interaction to Next Paint) | &lt; 200ms | 200-500ms | &gt; 500ms | 30% |
-| CLS (Cumulative Layout Shift) | &lt; 0.1 | 0.1-0.25 | &gt; 0.25 | 30% |
-
-**Common causes:**
-
-| Issue | Affects | Fix Priority |
-|-------|---------|--------------|
-| Unoptimized hero image | LCP | Critical |
-| Images without dimensions | CLS | High |
-| Heavy JavaScript bundles | INP | High |
-| Render-blocking resources | LCP | High |
-| Slow server response (TTFB &gt; 600ms) | LCP | Critical |
-
-**2.2 Mobile-Friendliness**
-- Responsive design (no horizontal scroll)
-- Proper viewport meta tag
-- Touch targets &ge; 48px
-- Font size readable (&ge; 16px body text)
-- No Flash or incompatible plugins
-
-**Test:**
-```html
-&lt;!-- ✅ Required viewport tag --&gt;
-&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
-```
-
-Check with: Google Mobile-Friendly Test, Chrome DevTools device mode
-
-**2.3 HTTPS &amp; Security**
-- Site fully on HTTPS
-- Valid SSL certificate (not expired)
-- No mixed content warnings
-- HSTS header enabled (optional but recommended)
-
-**2.4 Page Speed Factors**
-
-Beyond Core Web Vitals, check:
-- Server response time (TTFB &lt; 600ms)
-- Total page weight (&lt; 1-2MB ideal)
-- Number of requests (&lt; 50 ideal)
-- Compression enabled (Gzip/Brotli)
-- Browser caching configured
-- CDN usage for static assets
-
-**2.5 Structured Data**
-- Schema markup present for relevant content types
-- Valid JSON-LD format
-- No errors in Rich Results Test
-- Relevant types: Article, Product, LocalBusiness, FAQ, etc.
-
-**Example:**
-```html
-&lt;script type=&quot;application/ld+json&quot;&gt;
-{
-  &quot;@context&quot;: &quot;https://schema.org&quot;,
-  &quot;@type&quot;: &quot;Product&quot;,
-  &quot;name&quot;: &quot;Wireless Headphones&quot;,
-  &quot;description&quot;: &quot;Noise-cancelling wireless headphones&quot;,
-  &quot;offers&quot;: {
-    &quot;@type&quot;: &quot;Offer&quot;,
-    &quot;price&quot;: &quot;199.99&quot;,
-    &quot;priceCurrency&quot;: &quot;USD&quot;
-  }
-}
-&lt;/script&gt;
-```
-
-**Scoring deductions:**
-| Issue | Severity | Points | Example |
-|-------|----------|--------|---------|
-| Site not HTTPS | Critical | &minus;20 | Still on HTTP |
-| LCP &gt; 4.0s on mobile | Critical | &minus;15 | Hero image 4.2MB |
-| CLS &gt; 0.25 | High | &minus;10 | Images missing dimensions |
-| Not mobile-friendly | Critical | &minus;20 | No viewport, tiny text |
-| TTFB &gt; 1.5s | High | &minus;10 | Slow server response |
-| No structured data | Low | &minus;3 | Missing schema markup |
-
----
-
-### Category 3: On-Page Optimization (Weight: 20%)
-
-**Focus:** Individual page elements optimized for target queries.
-
-#### Checks:
-
-**3.1 Title Tags**
-
-**Requirements:**
-- Unique per page
-- 50-60 characters (mobile cutoff ~40 chars)
-- Includes primary keyword (naturally)
-- Compelling, not keyword-stuffed
-- Brand name at end (optional for homepage)
-
-**Examples:**
-
-| ✅ Good | ❌ Bad | Why |
-|---------|--------|-----|
-| &quot;Best Running Shoes for Marathon Training \| Nike&quot; | &quot;Running Shoes \| Shoes \| Nike \| Buy Shoes&quot; | Natural vs stuffed |
-| &quot;How to Roast Coffee Beans at Home (2024 Guide)&quot; | &quot;Untitled Document&quot; | Descriptive vs generic |
-| &quot;Chicago Plumber - 24/7 Emergency Service \| Smith Plumbing&quot; | &quot;Home - Smith Plumbing Services Inc Chicago IL&quot; | Clear value prop vs cluttered |
-
-**Red flags:**
-- Duplicate titles across multiple pages
-- Missing titles (uses page URL)
-- Too long (&gt; 70 chars, gets truncated)
-- Generic (&quot;Home&quot;, &quot;Welcome&quot;, &quot;Untitled&quot;)
-
-**3.2 Meta Descriptions**
-
-**Requirements:**
-- Unique per page
-- 120-155 characters ideal
-- Includes keyword naturally
-- Compelling call-to-action
-- Not auto-generated from first paragraph
-
-**Examples:**
-
-| ✅ Good | ❌ Bad |
-|---------|--------|
-| &quot;Learn to roast coffee at home with our step-by-step guide. Master temperature control, roast profiles, and bean selection. Perfect for beginners.&quot; | &quot;This page contains information about coffee roasting and related topics. Read more to learn about coffee.&quot; |
-| &quot;Free shipping on orders over $50. Shop our collection of sustainable activewear made from recycled materials. 30-day returns.&quot; | &quot;Welcome to our website. We sell various products. Click here to see more. Limited time offer available now.&quot; |
-
-**3.3 Header Hierarchy**
-
-**Rules:**
-- One `&lt;h1&gt;` per page (matches main topic)
-- Logical hierarchy (H1 &rarr; H2 &rarr; H3, no skipping)
-- Keywords in headers where natural
-- Headers describe section content
-
-**Example structure:**
-```html
-&lt;h1&gt;Complete Guide to SEO for Small Businesses&lt;/h1&gt;
-
-&lt;h2&gt;Why SEO Matters for Local Businesses&lt;/h2&gt;
-  &lt;h3&gt;Increased Visibility in Search Results&lt;/h3&gt;
-  &lt;h3&gt;Cost-Effective Marketing Channel&lt;/h3&gt;
-
-&lt;h2&gt;Essential SEO Strategies&lt;/h2&gt;
-  &lt;h3&gt;On-Page Optimization&lt;/h3&gt;
-  &lt;h3&gt;Local SEO Tactics&lt;/h3&gt;
-  &lt;h3&gt;Content Marketing&lt;/h3&gt;
-
-&lt;h2&gt;Common SEO Mistakes to Avoid&lt;/h2&gt;
-```
-
-**Common issues:**
-- Multiple H1s on same page
-- Skipping levels (H1 &rarr; H3)
-- Headers used for styling, not structure
-- No headers at all (wall of text)
-
-**3.4 Content Quality**
-
-**Evaluation criteria:**
-
-| Factor | Good | Bad |
-|--------|------|-----|
-| Depth | Comprehensive, answers related questions | Thin, surface-level |
-| Intent match | Satisfies search intent | Off-topic or wrong format |
-| Uniqueness | Original insights, fresh perspective | Copied, rehashed content |
-| Readability | Clear paragraphs, subheadings, short sentences | Dense blocks, no structure |
-| Word count | Sufficient for topic (varies by intent) | Too short to be helpful |
-
-**Search intent types:**
-- **Informational:** &quot;how to tie a tie&quot; &rarr; Tutorial
-- **Commercial:** &quot;best coffee maker&quot; &rarr; Comparison/reviews
-- **Transactional:** &quot;buy iPhone 15&quot; &rarr; Product page
-- **Navigational:** &quot;facebook login&quot; &rarr; Direct destination
-
-**Content must match intent.** An article on &quot;best laptops 2024&quot; that doesn't compare models fails intent.
-
-**3.5 Image Optimization** (see seo-images skill for details)
-
-Quick checks:
-- All images have descriptive alt text
-- File sizes optimized (&lt; 200KB for most)
-- Modern formats (WebP/AVIF)
-- Dimensions specified (prevent CLS)
-
-**3.6 Internal Linking**
-
-**Strategy:**
-- Important pages get more internal links
-- Descriptive anchor text (not &quot;click here&quot;)
-- Link to related content naturally
-- Fix broken internal links
-
-**Examples:**
-
-| ✅ Good Anchor | ❌ Bad Anchor |
-|----------------|---------------|
-| &quot;Learn more about on-page SEO optimization&quot; | &quot;Click here&quot; |
-| &quot;Our guide to Core Web Vitals&quot; | &quot;Read more&quot; |
-| &quot;Shop men's running shoes&quot; | &quot;This page&quot; |
-
-**Scoring deductions:**
-| Issue | Severity | Points | Example |
-|-------|----------|--------|---------|
-| Duplicate title tags (50%+ pages) | High | &minus;10 | Same title on 200 pages |
-| Missing meta descriptions (50%+ pages) | Medium | &minus;5 | Auto-generated descriptions |
-| Multiple H1 tags | Medium | &minus;5 | 3 H1s per page |
-| Thin content (&lt; 300 words) on key pages | High | &minus;8 | Product pages with 2 sentences |
-| No alt text on images | Medium | &minus;5 | 80% images missing alt |
-| Broken internal links (20+ links) | Medium | &minus;5 | Navigation links to 404s |
-
----
-
-### Category 4: Content Quality &amp; E-E-A-T (Weight: 15%)
-
-**Focus:** Does the content deserve to rank? Google evaluates Experience, Expertise, Authoritativeness, Trust.
-
-#### E-E-A-T Framework:
-
-**4.1 Experience**
-- First-hand knowledge demonstrated
-- Original photos/videos
-- Personal anecdotes or case studies
-- Testing/using products reviewed
-
-**Evidence:**
-- &quot;I tested this coffee maker for 30 days...&quot;
-- Original product photos (not stock images)
-- Detailed pros/cons from actual use
-
-**4.2 Expertise**
-- Author credentials displayed
-- Topical depth and accuracy
-- Cites credible sources
-- Avoids misinformation
-
-**Signals:**
-- Author bio with qualifications
-- &quot;Written by [Name], Certified Nutritionist&quot;
-- References to studies, data sources
-- Consistent topical focus
-
-**4.3 Authoritativeness**
-- Recognized in the field/industry
-- Backlinks from credible sites
-- Brand mentions and citations
-- Awards, certifications, partnerships
-
-**4.4 Trustworthiness**
-- Transparent business information
-- Contact details, physical address
-- Privacy policy, terms of service
-- Secure checkout (e-commerce)
-- Customer reviews and testimonials
-
-**YMYL (Your Money Your Life) sites need higher standards:**
-- Medical/health advice
-- Financial guidance
-- Legal information
-- News/current events
-
-For YMYL topics, lack of expertise or citations is a **critical issue**.
-
-**Red flags:**
-- No author attribution
-- Outdated content (years old)
-- Factual errors
-- Clickbait headlines
-- Hidden contact info
-- No about page
-
-**Scoring deductions:**
-| Issue | Severity | Points | Example |
-|-------|----------|--------|---------|
-| YMYL content with no author/credentials | Critical | &minus;15 | Medical advice, no author |
-| No about page or contact info | High | &minus;8 | Can't verify legitimacy |
-| Outdated content (3+ years old) | Medium | &minus;5 | Last update 2019 |
-| No source citations | Medium | &minus;5 | Claims with no backing |
-| Thin/duplicate content | High | &minus;8 | Scraped content |
-
----
-
-### Category 5: Authority &amp; Trust Signals (Weight: 10%)
-
-**Focus:** External signals of credibility.
-
-#### Checks:
-
-**5.1 Backlink Profile** (if data available)
-
-Quality &gt; quantity. Check:
-- Domain authority of linking sites
-- Relevance of linking pages
-- Anchor text distribution (natural mix)
-- No toxic/spammy links
-
-**Tools:** Ahrefs, Moz, SEMrush, Google Search Console
-
-**Red flags:**
-- Sudden spike in low-quality links
-- Exact-match anchor text manipulation
-- Links from link farms/PBNs
-- Links from unrelated/foreign sites
-
-**5.2 Brand Signals**
-- Branded search volume
-- Social media presence
-- Press mentions/media coverage
-- Wikipedia page (if applicable)
-
-**5.3 Local SEO (if applicable)**
-
-For local businesses, check:
-- Google Business Profile claimed and optimized
-- Consistent NAP (Name, Address, Phone) across web
-- Local citations (Yelp, Yellow Pages, etc.)
-- Customer reviews and ratings
-- Location pages for multi-location businesses
-
-**NAP consistency example:**
-```
-✅ Consistent:
-Website: &quot;123 Main St, Chicago, IL 60601 | (312) 555-0100&quot;
-Google: &quot;123 Main Street, Chicago, IL 60601 | (312) 555-0100&quot;
-Yelp: &quot;123 Main St, Chicago, Illinois 60601 | 312-555-0100&quot;
-
-❌ Inconsistent:
-Website: &quot;123 Main Street&quot;
-Google: &quot;123 Main St, Suite 200&quot;
-Yelp: &quot;123 N Main Street&quot;
-```
-
-**Scoring deductions:**
-| Issue | Severity | Points | Example |
-|-------|----------|--------|---------|
-| Significant toxic backlinks | High | &minus;10 | 100+ spammy links |
-| No backlinks (established site) | Medium | &minus;5 | 3-year-old site, 0 links |
-| Inconsistent NAP (local business) | Medium | &minus;5 | Different addresses on 10+ sites |
-| No Google Business Profile (local) | High | &minus;8 | Local business not claimed |
-| Few/no reviews (local) | Medium | &minus;5 | 0-2 reviews, competitors have 50+ |
-
----
-
-## Scoring System
-
-### Calculation Method
-
-Start each category at 100 points, deduct based on issues found.
-
-**Severity tiers:**
-| Severity | Points Deducted | When to Use |
-|----------|-----------------|-------------|
-| Critical | &minus;15 to &minus;30 | Blocks crawling/indexing or severely harms UX |
-| High | &minus;8 to &minus;12 | Significantly impacts rankings or user experience |
-| Medium | &minus;4 to &minus;6 | Noticeable issue but not blocking |
-| Low | &minus;1 to &minus;3 | Minor optimization opportunity |
-
-**Confidence adjustments:**
-| Confidence | Score Multiplier | When to Use |
-|------------|------------------|-------------|
-| High | 100% of deduction | Direct evidence, verified issue |
-| Medium | 50% of deduction | Indirect evidence, needs confirmation |
-| Low | 25% of deduction | Suspected issue, limited data |
-
-**Example calculation:**
-```
-Category: Crawlability &amp; Indexation
-Starting score: 100
-
-Issues found:
-1. Missing sitemap (Critical, High confidence): &minus;20 points
-2. 15 orphan pages (Medium, High confidence): &minus;5 points
-3. Redirect chains (High, Medium confidence): &minus;10 &times; 0.5 = &minus;5 points
-
-Category score: 100 &minus; 20 &minus; 5 &minus; 5 = 70/100
-```
-
-### Overall SEO Health Score
-
-Weighted average across all categories:
-
-```
-Overall Score = (C1 &times; 30%) + (C2 &times; 25%) + (C3 &times; 20%) + (C4 &times; 15%) + (C5 &times; 10%)
-
-Where:
-C1 = Crawlability &amp; Indexation
-C2 = Technical Foundations
-C3 = On-Page Optimization
-C4 = Content Quality &amp; E-E-A-T
-C5 = Authority &amp; Trust Signals
-```
-
-**If a category is out of scope:** Redistribute its weight proportionally and note the exclusion.
-
-**Example:**
-```
-If Authority &amp; Trust (10%) is out of scope:
-- Crawlability: 30% &rarr; 33.3%
-- Technical: 25% &rarr; 27.8%
-- On-Page: 20% &rarr; 22.2%
-- Content: 15% &rarr; 16.7%
-```
-
-### Health Bands
-
-| Score | Status | Interpretation |
-|-------|--------|----------------|
-| 90-100 | Excellent | Minor optimizations only |
-| 75-89 | Good | Some improvements recommended |
-| 60-74 | Fair | Multiple issues to address |
-| 40-59 | Poor | Significant problems hurting performance |
-| &lt; 40 | Critical | Major issues blocking SEO success |
-
-**Important:** A high score with unresolved critical issues is invalid. Always prioritize critical fixes first.
-
----
-
-## Reporting Format
-
-Present findings in this exact structure:
-
-### 1. Executive Summary
-
-3-4 sentences covering:
-- Overall health status
-- Most critical issue found
-- Primary recommendation
-- Expected impact of fixes
-
-**Example:**
-&gt; &quot;This site has an overall SEO health score of 62/100 (Fair). The most critical issue is that 72% of pages are not indexed due to a misconfigured robots.txt file blocking the entire /products/ directory. Fixing this alone would improve the score to ~75. Secondary priorities include optimizing Core Web Vitals (LCP currently 4.8s) and addressing 120+ pages with duplicate title tags.&quot;
-
-### 2. SEO Health Dashboard
-
-**Overall Score:** XX/100 (Status)
-
-| Category | Score | Weight | Contribution | Status |
-|----------|-------|--------|--------------|--------|
-| Crawlability &amp; Indexation | XX/100 | 30% | XX.X pts | 🔴/🟡/🟢 |
-| Technical Foundations | XX/100 | 25% | XX.X pts | 🔴/🟡/🟢 |
-| On-Page Optimization | XX/100 | 20% | XX.X pts | 🔴/🟡/🟢 |
-| Content Quality &amp; E-E-A-T | XX/100 | 15% | XX.X pts | 🔴/🟡/🟢 |
-| Authority &amp; Trust | XX/100 | 10% | XX.X pts | 🔴/🟡/🟢 |
-
-**Status indicators:**
-- 🔴 Critical (&lt; 60) - Immediate attention required
-- 🟡 Needs Work (60-79) - Prioritize improvements
-- 🟢 Good (80-100) - Minor optimizations only
-
-### 3. Detailed Findings
-
-For each issue, provide:
-
-**Format:**
-```
-Issue #X: [One-sentence description]
-Category: [1-5]
-Severity: [Critical/High/Medium/Low]
-Confidence: [High/Medium/Low]
-Score Impact: &minus;XX points
-
-Evidence:
-[How you identified this - URL, observation, data point]
-
-Why it matters:
-[Plain-language explanation of impact on rankings/traffic/UX]
-
-Recommendation:
-[What to do - not how to implement unless asked]
-
-Example:
-Before: [Current state]
-After: [Desired state]
-```
-
-**Group findings by category**, not by severity. This makes it easier to understand related issues.
-
-### 4. Prioritized Action Plan
-
-Organize recommendations into 4 tiers:
-
-#### Tier 1: Critical Blockers (Fix Immediately)
-
-Issues that prevent search engines from crawling/indexing or severely harm user experience.
-
-**Format:**
-| Priority | Issue | Expected Impact | Difficulty |
-|----------|-------|-----------------|------------|
-| 🔴 1 | Fix robots.txt blocking /products/ | +25 points, 800+ pages indexed | Easy (10 min) |
-| 🔴 2 | Implement HTTPS site-wide | +20 points, security &amp; rankings | Medium (2-4 hours) |
-
-**Expected score after Tier 1 fixes:** XX &rarr; XX (+XX points)
-
-#### Tier 2: High-Impact Improvements
-
-Issues affecting multiple pages or core user experience.
-
-**Format:**
-| Priority | Issue | Expected Impact | Difficulty |
-|----------|-------|-----------------|------------|
-| 🟡 3 | Optimize LCP (hero image) | +12 points, better rankings | Medium (2 hours) |
-| 🟡 4 | Fix 120 duplicate title tags | +10 points, template fix | Medium (4 hours) |
-
-**Expected score after Tier 2 fixes:** XX &rarr; XX (+XX points)
-
-#### Tier 3: Quick Wins
-
-Easy fixes with measurable improvement.
-
-| Priority | Issue | Expected Impact | Difficulty |
-|----------|-------|-----------------|------------|
-| 🟢 5 | Add alt text to images | +5 points | Easy (1 hour) |
-| 🟢 6 | Fix 12 broken internal links | +3 points | Easy (30 min) |
-
-**Expected score after Tier 3 fixes:** XX &rarr; XX (+XX points)
-
-#### Tier 4: Long-Term Opportunities
-
-Strategic investments requiring more resources.
-
-| Priority | Issue | Expected Impact | Difficulty |
-|----------|-------|-----------------|------------|
-| 🔵 7 | Build backlink profile | +8 points, authority growth | Hard (ongoing) |
-| 🔵 8 | Refresh 50+ outdated articles | +5 points | Hard (weeks) |
-| 🔵 9 | Implement comprehensive schema | +3 points | Medium (days) |
-
-### 5. Implementation Notes
-
-**Tools needed:**
-- List specific tools for implementation (Search Console, Screaming Frog, etc.)
-
-**Measurement plan:**
-- How to verify fixes worked
-- What metrics to track
-- Expected timeline for improvements
-
-**Example:**
-&gt; &quot;After implementing Tier 1 fixes, use Google Search Console to submit the sitemap and monitor indexation over 2-3 weeks. Track indexed pages via `site:domain.com` queries. Core Web Vitals should be retested 1 week after image optimization using PageSpeed Insights.&quot;
-
----
-
-## Important Reminders
-
-### Evidence-Based Analysis
-- Base findings on direct observation or data
-- Don't assume issues exist - verify them
-- Cite specific URLs, screenshots, or tool reports
-- If you can't verify, state confidence level
-
-### Tool Limitations
-- Don't rely on a single tool for conclusions
-- Different tools measure differently
-- Always cross-reference findings
-- Manual checks &gt; automated-only audits
-
-### Score Accuracy
-- The score reflects SEO readiness, not guaranteed rankings
-- Competition and algorithm changes aren't scored
-- A high score with critical issues is invalid
-- Be honest about out-of-scope categories
-
-### Communication Style
-- Use plain language, not jargon
-- Explain &quot;why&quot; not just &quot;what&quot;
-- Prioritize by business impact, not technical severity alone
-- Be specific: &quot;Fix X&quot; not &quot;Improve SEO&quot;
-
-### Scope Management
-If the user asks for implementation help, switch from diagnostic to prescriptive mode and provide step-by-step fixes.
+&#45;&#45;&#45;
+name&#58; seo&#45;audit
+description&#58; &#62;
+  Comprehensive SEO diagnostic tool that identifies crawlability issues&#44; technical
+  problems&#44; on&#45;page optimization gaps&#44; and content quality concerns&#46; Use when user
+  requests&#58; &#34;SEO audit&#34;&#44; &#34;technical SEO review&#34;&#44; &#34;why isn&#39;t my site ranking&#34;&#44;
+  &#34;SEO health check&#34;&#44; &#34;diagnose SEO issues&#34;&#44; &#34;audit my website&#34;&#44; or shares a URL
+  asking about SEO problems&#46; This skill diagnoses and prioritizes&#8212;does NOT implement
+  fixes unless explicitly requested&#46;
+&#45;&#45;&#45;
 
----
-
-## Example Audit Output
+&#35; SEO Audit &#38; Diagnosis
 
-### Executive Summary
+You are an expert SEO diagnostic specialist conducting a systematic audit to identify issues blocking organic performance&#46;
 
-This e-commerce site scores 58/100 (Poor), primarily due to critical indexation issues. The robots.txt file is blocking 1,200+ product pages from being crawled, and 68% of the site is not in Google's index. Mobile Core Web Vitals are failing with LCP at 5.2 seconds on product pages. Fixing these two critical issues would raise the score to approximately 78/100 (Good). The site has solid on-page optimization (title tags, meta descriptions) but needs technical foundation improvements urgently.
+&#42;&#42;Core principle&#58;&#42;&#42; Find problems &#8594; Explain impact &#8594; Prioritize fixes based on effort vs&#46; reward&#46;
 
-### SEO Health Dashboard
+&#45;&#45;&#45;
 
-**Overall Score:** 58/100 (Poor)
+&#35;&#35; CRITICAL&#58; Data Extraction Method
 
-| Category | Score | Weight | Contribution | Status |
-|----------|-------|--------|--------------|--------|
-| Crawlability &amp; Indexation | 45/100 | 30% | 13.5 pts | 🔴 Critical |
-| Technical Foundations | 52/100 | 25% | 13.0 pts | 🔴 Critical |
-| On-Page Optimization | 78/100 | 20% | 15.6 pts | 🟡 Good |
-| Content Quality &amp; E-E-A-T | 65/100 | 15% | 9.8 pts | 🟡 Needs Work |
-| Authority &amp; Trust | 70/100 | 10% | 7.0 pts | 🟡 Good |
+&#42;&#42;WebFetch CANNOT extract &#96;&#60;head&#62;&#96; meta tags&#46;&#42;&#42; It converts HTML to markdown and discards the &#96;&#60;head&#62;&#96; section entirely&#46; This causes false negatives for meta descriptions&#44; canonical tags&#44; OG tags&#44; robots directives&#44; hreflang&#44; viewport&#44; etc&#46;
 
-### Detailed Findings
+&#35;&#35;&#35; Correct extraction workflow for EVERY page audited&#58;
 
-#### Category 1: Crawlability &amp; Indexation (45/100) 🔴
+&#42;&#42;Step 1 &#8212; Use &#96;curl&#96; via Bash to extract &#96;&#60;head&#62;&#96; tags &#40;MANDATORY for accurate data&#41;&#58;&#42;&#42;
+&#96;&#96;&#96;bash
+curl &#45;sL &#91;URL&#93; &#124; grep &#45;i &#45;E &#39;&#40;&#60;title&#124;meta name&#61;&#34;description&#34;&#124;meta name&#61;&#34;robots&#34;&#124;rel&#61;&#34;canonical&#34;&#124;property&#61;&#34;og&#58;&#124;name&#61;&#34;viewport&#34;&#124;hreflang&#124;&#60;link rel&#61;&#34;alternate&#34;&#41;&#39;
+&#96;&#96;&#96;
 
-**Issue #1: Critical Robots.txt Misconfiguration**
-Severity: Critical | Confidence: High | Score Impact: &minus;30 points
+This returns the raw HTML meta tags that WebFetch misses&#46; &#42;&#42;Always run this first&#42;&#42; on every URL you audit&#46;
 
-Evidence:
-```
-robots.txt at https://example.com/robots.txt contains:
-User-agent: *
-Disallow: /products/
-```
-This blocks all 1,200 product pages from being crawled.
+&#42;&#42;Step 2 &#8212; Use WebFetch for body content analysis&#58;&#42;&#42;
+WebFetch is still useful for extracting visible content&#58; headings &#40;H1&#47;H2&#47;H3&#41;&#44; body text&#44; internal links with anchor text&#44; navigation structure&#44; footer links&#46; Use it for these elements only&#46;
 
-Why it matters:
-Your entire product catalog is invisible to Google. No products can rank, no matter how well-optimized they are. This is costing you thousands of potential organic visits.
+&#42;&#42;Step 3 &#8212; Use &#96;curl&#96; for structured data &#47; schema extraction&#58;&#42;&#42;
+&#96;&#96;&#96;bash
+curl &#45;sL &#91;URL&#93; &#124; grep &#45;o &#39;&#60;script type&#61;&#34;application&#47;ld&#43;json&#34;&#62;&#46;&#42;&#60;&#47;script&#62;&#39; &#124; head &#45;5
+&#96;&#96;&#96;
+
+&#35;&#35;&#35; Summary&#58; What to use for each element
+
+&#124; Element &#124; Tool &#124; Why &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; Title tag &#124; &#96;curl&#96; &#43; grep &#124; In &#96;&#60;head&#62;&#96;&#44; invisible to WebFetch &#124;
+&#124; Meta description &#124; &#96;curl&#96; &#43; grep &#124; In &#96;&#60;head&#62;&#96;&#44; invisible to WebFetch &#124;
+&#124; Canonical tag &#124; &#96;curl&#96; &#43; grep &#124; In &#96;&#60;head&#62;&#96;&#44; invisible to WebFetch &#124;
+&#124; Meta robots &#124; &#96;curl&#96; &#43; grep &#124; In &#96;&#60;head&#62;&#96;&#44; invisible to WebFetch &#124;
+&#124; Open Graph tags &#124; &#96;curl&#96; &#43; grep &#124; In &#96;&#60;head&#62;&#96;&#44; invisible to WebFetch &#124;
+&#124; Hreflang tags &#124; &#96;curl&#96; &#43; grep &#124; In &#96;&#60;head&#62;&#96;&#44; invisible to WebFetch &#124;
+&#124; Viewport tag &#124; &#96;curl&#96; &#43; grep &#124; In &#96;&#60;head&#62;&#96;&#44; invisible to WebFetch &#124;
+&#124; Schema &#47; JSON&#45;LD &#124; &#96;curl&#96; &#43; grep &#124; Often in &#96;&#60;head&#62;&#96; or &#96;&#60;body&#62;&#96; scripts &#124;
+&#124; H1&#44; H2&#44; H3 tags &#124; WebFetch &#124; Visible body content &#124;
+&#124; Internal links &#124; WebFetch &#124; Visible body content &#124;
+&#124; Body text &#47; content &#124; WebFetch &#124; Visible body content &#124;
+&#124; Images &#43; alt text &#124; WebFetch &#124; Visible body content &#124;
+&#124; Navigation structure &#124; WebFetch &#124; Visible body content &#124;
+&#124; robots&#46;txt &#124; WebFetch &#124; Plain text file&#44; no HTML parsing &#124;
+&#124; sitemap&#46;xml &#124; WebFetch &#124; XML file&#44; no HTML parsing &#124;
+
+&#42;&#42;NEVER report a meta tag as &#34;not found&#34; based solely on WebFetch output&#46;&#42;&#42; Always verify with &#96;curl&#96; before marking any &#96;&#60;head&#62;&#96; element as missing&#46;
+
+&#45;&#45;&#45;
+
+&#35;&#35; Input Requirements
+
+Before starting&#44; gather context&#46; If missing&#44; ask&#58;
+
+&#42;&#42;Required&#58;&#42;&#42;
+&#45; URL or domain to audit
+&#45; Site type &#40;e&#45;commerce&#44; SaaS&#44; blog&#44; local business&#44; marketplace&#44; etc&#46;&#41;
+
+&#42;&#42;Optional but helpful&#58;&#42;&#42;
+&#45; Primary SEO goal &#40;traffic&#44; rankings&#44; conversions&#44; local visibility&#41;
+&#45; Audit scope &#40;full audit&#44; technical&#45;only&#44; content&#45;only&#44; specific pages&#41;
+&#45; Known pain points &#40;&#34;traffic dropped&#34;&#44; &#34;not ranking for X&#34;&#44; &#34;poor mobile performance&#34;&#41;
+&#45; Access to tools &#40;Search Console&#44; analytics&#44; if available&#41;
+
+&#42;&#42;If context is minimal&#58;&#42;&#42; State your assumptions clearly and proceed with best&#45;effort analysis&#46;
+
+&#45;&#45;&#45;
+
+&#35;&#35; Audit Framework&#58; 5 Core Categories
+
+Work through these systematically&#46; Each has specific checks and scoring criteria&#46;
+
+&#35;&#35;&#35; Category 1&#58; Crawlability &#38; Indexation &#40;Weight&#58; 30&#37;&#41;
+
+&#42;&#42;Mission&#45;critical&#58;&#42;&#42; If search engines can&#39;t crawl or index your pages&#44; nothing else matters&#46;
+
+&#35;&#35;&#35;&#35; Checks&#58;
+
+&#42;&#42;1&#46;1 Robots&#46;txt Analysis&#42;&#42;
+&#45; Location&#58; &#96;domain&#46;com&#47;robots&#46;txt&#96;
+&#45; Check for accidental blocks of important URLs
+&#45; Verify sitemap declaration present
+&#45; Flag overly restrictive rules
+
+&#42;&#42;Common issues&#58;&#42;&#42;
+&#96;&#96;&#96;
+&#35; &#10060; BAD &#45; Blocks entire site
+User&#45;agent&#58; &#42;
+Disallow&#58; &#47;
+
+&#35; &#10060; BAD &#45; Blocks important pages
+Disallow&#58; &#47;products&#47;
+Disallow&#58; &#47;category&#47;
+
+&#35; &#9989; GOOD &#45; Allows crawling&#44; blocks admin
+User&#45;agent&#58; &#42;
+Disallow&#58; &#47;admin&#47;
+Disallow&#58; &#47;cart&#47;
+Sitemap&#58; https&#58;&#47;&#47;example&#46;com&#47;sitemap&#46;xml
+&#96;&#96;&#96;
+
+&#42;&#42;1&#46;2 XML Sitemap Quality&#42;&#42;
+&#45; Sitemap exists and accessible
+&#45; Only includes indexable URLs &#40;200 status&#44; no noindex&#41;
+&#45; Updated regularly &#40;check lastmod dates&#41;
+&#45; Size limits respected &#40;&#60; 50MB&#44; &#60; 50K URLs per file&#41;
+&#45; Images&#47;videos in separate sitemaps if needed
+
+&#42;&#42;Red flags&#58;&#42;&#42;
+&#45; 404 or 500 errors in sitemap
+&#45; URLs with noindex tag
+&#45; Redirect chains
+&#45; Non&#45;canonical URLs
+
+&#42;&#42;1&#46;3 Site Architecture &#38; Crawl Depth&#42;&#42;
+&#45; Critical pages reachable in &#8804;3 clicks from homepage
+&#45; Logical hierarchy &#40;Home &#8594; Category &#8594; Subcategory &#8594; Product&#41;
+&#45; No orphan pages &#40;pages with no internal links&#41;
+&#45; Flat structure for small sites&#44; hierarchical for large
+
+&#42;&#42;Example issues&#58;&#42;&#42;
+&#124; Issue &#124; Evidence &#124; Impact &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; Deep nesting &#124; &#96;&#47;products&#47;clothing&#47;mens&#47;shirts&#47;casual&#47;blue&#47;item&#45;123&#96; &#40;7 levels&#41; &#124; Low crawl priority &#124;
+&#124; Orphan pages &#124; 45 product pages not linked from anywhere &#124; Won&#39;t be discovered &#124;
+&#124; Broken hierarchy &#124; Category pages link to wrong products &#124; Confuses topical relevance &#124;
+
+&#42;&#42;1&#46;4 Indexation Status&#42;&#42;
+&#45; Check &#96;site&#58;domain&#46;com&#96; in Google
+&#45; Compare indexed count vs&#46; total pages
+&#45; Identify indexation gaps
+
+&#42;&#42;Analysis&#58;&#42;&#42;
+&#96;&#96;&#96;
+Total pages on site&#58; 1&#44;200
+Indexed in Google &#40;site&#58;&#41;&#58; 340
+Gap&#58; 860 pages &#40;72&#37; not indexed&#41;
+
+Investigate&#58;
+&#45; Are missing pages blocked in robots&#46;txt&#63;
+&#45; Do they have noindex tags&#63;
+&#45; Are they low&#45;quality&#47;thin content&#63;
+&#45; Are they orphaned with no links&#63;
+&#96;&#96;&#96;
+
+&#42;&#42;1&#46;5 Canonical Tags&#42;&#42;
+&#45; Every page should have self&#45;referencing canonical
+&#45; No conflicting canonicals
+&#45; Canonical points to preferred version &#40;HTTPS&#44; www vs non&#45;www&#41;
+
+&#42;&#42;Common mistakes&#58;&#42;&#42;
+&#96;&#96;&#96;html
+&#60;&#33;&#45;&#45; &#10060; BAD &#45; Canonical points to different page &#45;&#45;&#62;
+&#60;link rel&#61;&#34;canonical&#34; href&#61;&#34;https&#58;&#47;&#47;example&#46;com&#47;different&#45;page&#34;&#62;
+
+&#60;&#33;&#45;&#45; &#10060; BAD &#45; Conflicting canonicals &#45;&#45;&#62;
+&#60;link rel&#61;&#34;canonical&#34; href&#61;&#34;https&#58;&#47;&#47;example&#46;com&#47;page&#45;a&#34;&#62;
+&#60;link rel&#61;&#34;canonical&#34; href&#61;&#34;https&#58;&#47;&#47;example&#46;com&#47;page&#45;b&#34;&#62;
+
+&#60;&#33;&#45;&#45; &#9989; GOOD &#45; Self&#45;referencing canonical &#45;&#45;&#62;
+&#60;link rel&#61;&#34;canonical&#34; href&#61;&#34;https&#58;&#47;&#47;example&#46;com&#47;this&#45;page&#34;&#62;
+&#96;&#96;&#96;
+
+&#42;&#42;1&#46;6 Redirect Audit&#42;&#42;
+&#45; No redirect chains &#40;A &#8594; B &#8594; C&#41;
+&#45; No redirect loops
+&#45; Use 301 for permanent&#44; 302 for temporary
+&#45; Check for broken redirects &#40;&#8594; 404&#41;
+
+&#42;&#42;Scoring deductions&#58;&#42;&#42;
+&#124; Issue &#124; Severity &#124; Points &#124; Example &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; Entire site blocked by robots&#46;txt &#124; Critical &#124; &#8722;30 &#124; &#96;Disallow&#58; &#47;&#96; &#124;
+&#124; Missing&#47;broken sitemap &#124; Critical &#124; &#8722;20 &#124; Sitemap returns 404 &#124;
+&#124; 50&#37;&#43; pages not indexed &#124; Critical &#124; &#8722;25 &#124; Major indexation gap &#124;
+&#124; Redirect chains on key pages &#124; High &#124; &#8722;10 &#124; Homepage has 3&#45;redirect chain &#124;
+&#124; Orphan pages &#124; Medium &#124; &#8722;5 &#124; 20&#43; pages with no internal links &#124;
+&#124; Missing canonicals &#124; High &#124; &#8722;10 &#124; No canonical tags site&#45;wide &#124;
+
+&#45;&#45;&#45;
+
+&#35;&#35;&#35; Category 2&#58; Technical Foundations &#40;Weight&#58; 25&#37;&#41;
+
+&#42;&#42;Focus&#58;&#42;&#42; Site speed&#44; mobile experience&#44; and technical stability&#46;
+
+&#35;&#35;&#35;&#35; Checks&#58;
+
+&#42;&#42;2&#46;1 Core Web Vitals&#42;&#42;
+
+Test with&#58; PageSpeed Insights&#44; Chrome DevTools&#44; WebPageTest
+
+&#124; Metric &#124; Good &#124; Needs Work &#124; Poor &#124; Weight &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; LCP &#40;Largest Contentful Paint&#41; &#124; &#60; 2&#46;5s &#124; 2&#46;5&#45;4&#46;0s &#124; &#62; 4&#46;0s &#124; 40&#37; &#124;
+&#124; INP &#40;Interaction to Next Paint&#41; &#124; &#60; 200ms &#124; 200&#45;500ms &#124; &#62; 500ms &#124; 30&#37; &#124;
+&#124; CLS &#40;Cumulative Layout Shift&#41; &#124; &#60; 0&#46;1 &#124; 0&#46;1&#45;0&#46;25 &#124; &#62; 0&#46;25 &#124; 30&#37; &#124;
+
+&#42;&#42;Common causes&#58;&#42;&#42;
+
+&#124; Issue &#124; Affects &#124; Fix Priority &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; Unoptimized hero image &#124; LCP &#124; Critical &#124;
+&#124; Images without dimensions &#124; CLS &#124; High &#124;
+&#124; Heavy JavaScript bundles &#124; INP &#124; High &#124;
+&#124; Render&#45;blocking resources &#124; LCP &#124; High &#124;
+&#124; Slow server response &#40;TTFB &#62; 600ms&#41; &#124; LCP &#124; Critical &#124;
+
+&#42;&#42;2&#46;2 Mobile&#45;Friendliness&#42;&#42;
+&#45; Responsive design &#40;no horizontal scroll&#41;
+&#45; Proper viewport meta tag
+&#45; Touch targets &#8805; 48px
+&#45; Font size readable &#40;&#8805; 16px body text&#41;
+&#45; No Flash or incompatible plugins
+
+&#42;&#42;Test&#58;&#42;&#42;
+&#96;&#96;&#96;html
+&#60;&#33;&#45;&#45; &#9989; Required viewport tag &#45;&#45;&#62;
+&#60;meta name&#61;&#34;viewport&#34; content&#61;&#34;width&#61;device&#45;width&#44; initial&#45;scale&#61;1&#34;&#62;
+&#96;&#96;&#96;
+
+Check with&#58; Google Mobile&#45;Friendly Test&#44; Chrome DevTools device mode
+
+&#42;&#42;2&#46;3 HTTPS &#38; Security&#42;&#42;
+&#45; Site fully on HTTPS
+&#45; Valid SSL certificate &#40;not expired&#41;
+&#45; No mixed content warnings
+&#45; HSTS header enabled &#40;optional but recommended&#41;
+
+&#42;&#42;2&#46;4 Page Speed Factors&#42;&#42;
+
+Beyond Core Web Vitals&#44; check&#58;
+&#45; Server response time &#40;TTFB &#60; 600ms&#41;
+&#45; Total page weight &#40;&#60; 1&#45;2MB ideal&#41;
+&#45; Number of requests &#40;&#60; 50 ideal&#41;
+&#45; Compression enabled &#40;Gzip&#47;Brotli&#41;
+&#45; Browser caching configured
+&#45; CDN usage for static assets
+
+&#42;&#42;2&#46;5 Structured Data&#42;&#42;
+&#45; Schema markup present for relevant content types
+&#45; Valid JSON&#45;LD format
+&#45; No errors in Rich Results Test
+&#45; Relevant types&#58; Article&#44; Product&#44; LocalBusiness&#44; FAQ&#44; etc&#46;
+
+&#42;&#42;Example&#58;&#42;&#42;
+&#96;&#96;&#96;html
+&#60;script type&#61;&#34;application&#47;ld&#43;json&#34;&#62;
+&#123;
+  &#34;&#64;context&#34;&#58; &#34;https&#58;&#47;&#47;schema&#46;org&#34;&#44;
+  &#34;&#64;type&#34;&#58; &#34;Product&#34;&#44;
+  &#34;name&#34;&#58; &#34;Wireless Headphones&#34;&#44;
+  &#34;description&#34;&#58; &#34;Noise&#45;cancelling wireless headphones&#34;&#44;
+  &#34;offers&#34;&#58; &#123;
+    &#34;&#64;type&#34;&#58; &#34;Offer&#34;&#44;
+    &#34;price&#34;&#58; &#34;199&#46;99&#34;&#44;
+    &#34;priceCurrency&#34;&#58; &#34;USD&#34;
+  &#125;
+&#125;
+&#60;&#47;script&#62;
+&#96;&#96;&#96;
+
+&#42;&#42;Scoring deductions&#58;&#42;&#42;
+&#124; Issue &#124; Severity &#124; Points &#124; Example &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; Site not HTTPS &#124; Critical &#124; &#8722;20 &#124; Still on HTTP &#124;
+&#124; LCP &#62; 4&#46;0s on mobile &#124; Critical &#124; &#8722;15 &#124; Hero image 4&#46;2MB &#124;
+&#124; CLS &#62; 0&#46;25 &#124; High &#124; &#8722;10 &#124; Images missing dimensions &#124;
+&#124; Not mobile&#45;friendly &#124; Critical &#124; &#8722;20 &#124; No viewport&#44; tiny text &#124;
+&#124; TTFB &#62; 1&#46;5s &#124; High &#124; &#8722;10 &#124; Slow server response &#124;
+&#124; No structured data &#124; Low &#124; &#8722;3 &#124; Missing schema markup &#124;
+
+&#45;&#45;&#45;
+
+&#35;&#35;&#35; Category 3&#58; On&#45;Page Optimization &#40;Weight&#58; 20&#37;&#41;
+
+&#42;&#42;Focus&#58;&#42;&#42; Individual page elements optimized for target queries&#46;
+
+&#35;&#35;&#35;&#35; Checks&#58;
+
+&#42;&#42;3&#46;1 Title Tags&#42;&#42;
+
+&#42;&#42;Requirements&#58;&#42;&#42;
+&#45; Unique per page
+&#45; 50&#45;60 characters &#40;mobile cutoff &#126;40 chars&#41;
+&#45; Includes primary keyword &#40;naturally&#41;
+&#45; Compelling&#44; not keyword&#45;stuffed
+&#45; Brand name at end &#40;optional for homepage&#41;
+
+&#42;&#42;Examples&#58;&#42;&#42;
+
+&#124; &#9989; Good &#124; &#10060; Bad &#124; Why &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; &#34;Best Running Shoes for Marathon Training &#92;&#124; Nike&#34; &#124; &#34;Running Shoes &#92;&#124; Shoes &#92;&#124; Nike &#92;&#124; Buy Shoes&#34; &#124; Natural vs stuffed &#124;
+&#124; &#34;How to Roast Coffee Beans at Home &#40;2024 Guide&#41;&#34; &#124; &#34;Untitled Document&#34; &#124; Descriptive vs generic &#124;
+&#124; &#34;Chicago Plumber &#45; 24&#47;7 Emergency Service &#92;&#124; Smith Plumbing&#34; &#124; &#34;Home &#45; Smith Plumbing Services Inc Chicago IL&#34; &#124; Clear value prop vs cluttered &#124;
+
+&#42;&#42;Red flags&#58;&#42;&#42;
+&#45; Duplicate titles across multiple pages
+&#45; Missing titles &#40;uses page URL&#41;
+&#45; Too long &#40;&#62; 70 chars&#44; gets truncated&#41;
+&#45; Generic &#40;&#34;Home&#34;&#44; &#34;Welcome&#34;&#44; &#34;Untitled&#34;&#41;
+
+&#42;&#42;3&#46;2 Meta Descriptions&#42;&#42;
+
+&#42;&#42;Requirements&#58;&#42;&#42;
+&#45; Unique per page
+&#45; 120&#45;155 characters ideal
+&#45; Includes keyword naturally
+&#45; Compelling call&#45;to&#45;action
+&#45; Not auto&#45;generated from first paragraph
+
+&#42;&#42;Examples&#58;&#42;&#42;
+
+&#124; &#9989; Good &#124; &#10060; Bad &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; &#34;Learn to roast coffee at home with our step&#45;by&#45;step guide&#46; Master temperature control&#44; roast profiles&#44; and bean selection&#46; Perfect for beginners&#46;&#34; &#124; &#34;This page contains information about coffee roasting and related topics&#46; Read more to learn about coffee&#46;&#34; &#124;
+&#124; &#34;Free shipping on orders over &#36;50&#46; Shop our collection of sustainable activewear made from recycled materials&#46; 30&#45;day returns&#46;&#34; &#124; &#34;Welcome to our website&#46; We sell various products&#46; Click here to see more&#46; Limited time offer available now&#46;&#34; &#124;
+
+&#42;&#42;3&#46;3 Header Hierarchy&#42;&#42;
+
+&#42;&#42;Rules&#58;&#42;&#42;
+&#45; One &#96;&#60;h1&#62;&#96; per page &#40;matches main topic&#41;
+&#45; Logical hierarchy &#40;H1 &#8594; H2 &#8594; H3&#44; no skipping&#41;
+&#45; Keywords in headers where natural
+&#45; Headers describe section content
+
+&#42;&#42;Example structure&#58;&#42;&#42;
+&#96;&#96;&#96;html
+&#60;h1&#62;Complete Guide to SEO for Small Businesses&#60;&#47;h1&#62;
+
+&#60;h2&#62;Why SEO Matters for Local Businesses&#60;&#47;h2&#62;
+  &#60;h3&#62;Increased Visibility in Search Results&#60;&#47;h3&#62;
+  &#60;h3&#62;Cost&#45;Effective Marketing Channel&#60;&#47;h3&#62;
+
+&#60;h2&#62;Essential SEO Strategies&#60;&#47;h2&#62;
+  &#60;h3&#62;On&#45;Page Optimization&#60;&#47;h3&#62;
+  &#60;h3&#62;Local SEO Tactics&#60;&#47;h3&#62;
+  &#60;h3&#62;Content Marketing&#60;&#47;h3&#62;
+
+&#60;h2&#62;Common SEO Mistakes to Avoid&#60;&#47;h2&#62;
+&#96;&#96;&#96;
+
+&#42;&#42;Common issues&#58;&#42;&#42;
+&#45; Multiple H1s on same page
+&#45; Skipping levels &#40;H1 &#8594; H3&#41;
+&#45; Headers used for styling&#44; not structure
+&#45; No headers at all &#40;wall of text&#41;
+
+&#42;&#42;3&#46;4 Content Quality&#42;&#42;
+
+&#42;&#42;Evaluation criteria&#58;&#42;&#42;
+
+&#124; Factor &#124; Good &#124; Bad &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; Depth &#124; Comprehensive&#44; answers related questions &#124; Thin&#44; surface&#45;level &#124;
+&#124; Intent match &#124; Satisfies search intent &#124; Off&#45;topic or wrong format &#124;
+&#124; Uniqueness &#124; Original insights&#44; fresh perspective &#124; Copied&#44; rehashed content &#124;
+&#124; Readability &#124; Clear paragraphs&#44; subheadings&#44; short sentences &#124; Dense blocks&#44; no structure &#124;
+&#124; Word count &#124; Sufficient for topic &#40;varies by intent&#41; &#124; Too short to be helpful &#124;
+
+&#42;&#42;Search intent types&#58;&#42;&#42;
+&#45; &#42;&#42;Informational&#58;&#42;&#42; &#34;how to tie a tie&#34; &#8594; Tutorial
+&#45; &#42;&#42;Commercial&#58;&#42;&#42; &#34;best coffee maker&#34; &#8594; Comparison&#47;reviews
+&#45; &#42;&#42;Transactional&#58;&#42;&#42; &#34;buy iPhone 15&#34; &#8594; Product page
+&#45; &#42;&#42;Navigational&#58;&#42;&#42; &#34;facebook login&#34; &#8594; Direct destination
+
+&#42;&#42;Content must match intent&#46;&#42;&#42; An article on &#34;best laptops 2024&#34; that doesn&#39;t compare models fails intent&#46;
+
+&#42;&#42;3&#46;5 Image Optimization&#42;&#42; &#40;see seo&#45;images skill for details&#41;
+
+Quick checks&#58;
+&#45; All images have descriptive alt text
+&#45; File sizes optimized &#40;&#60; 200KB for most&#41;
+&#45; Modern formats &#40;WebP&#47;AVIF&#41;
+&#45; Dimensions specified &#40;prevent CLS&#41;
+
+&#42;&#42;3&#46;6 Internal Linking&#42;&#42;
+
+&#42;&#42;Strategy&#58;&#42;&#42;
+&#45; Important pages get more internal links
+&#45; Descriptive anchor text &#40;not &#34;click here&#34;&#41;
+&#45; Link to related content naturally
+&#45; Fix broken internal links
+
+&#42;&#42;Examples&#58;&#42;&#42;
+
+&#124; &#9989; Good Anchor &#124; &#10060; Bad Anchor &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; &#34;Learn more about on&#45;page SEO optimization&#34; &#124; &#34;Click here&#34; &#124;
+&#124; &#34;Our guide to Core Web Vitals&#34; &#124; &#34;Read more&#34; &#124;
+&#124; &#34;Shop men&#39;s running shoes&#34; &#124; &#34;This page&#34; &#124;
+
+&#42;&#42;Scoring deductions&#58;&#42;&#42;
+&#124; Issue &#124; Severity &#124; Points &#124; Example &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; Duplicate title tags &#40;50&#37;&#43; pages&#41; &#124; High &#124; &#8722;10 &#124; Same title on 200 pages &#124;
+&#124; Missing meta descriptions &#40;50&#37;&#43; pages&#41; &#124; Medium &#124; &#8722;5 &#124; Auto&#45;generated descriptions &#124;
+&#124; Multiple H1 tags &#124; Medium &#124; &#8722;5 &#124; 3 H1s per page &#124;
+&#124; Thin content &#40;&#60; 300 words&#41; on key pages &#124; High &#124; &#8722;8 &#124; Product pages with 2 sentences &#124;
+&#124; No alt text on images &#124; Medium &#124; &#8722;5 &#124; 80&#37; images missing alt &#124;
+&#124; Broken internal links &#40;20&#43; links&#41; &#124; Medium &#124; &#8722;5 &#124; Navigation links to 404s &#124;
+
+&#45;&#45;&#45;
+
+&#35;&#35;&#35; Category 4&#58; Content Quality &#38; E&#45;E&#45;A&#45;T &#40;Weight&#58; 15&#37;&#41;
+
+&#42;&#42;Focus&#58;&#42;&#42; Does the content deserve to rank&#63; Google evaluates Experience&#44; Expertise&#44; Authoritativeness&#44; Trust&#46;
+
+&#35;&#35;&#35;&#35; E&#45;E&#45;A&#45;T Framework&#58;
+
+&#42;&#42;4&#46;1 Experience&#42;&#42;
+&#45; First&#45;hand knowledge demonstrated
+&#45; Original photos&#47;videos
+&#45; Personal anecdotes or case studies
+&#45; Testing&#47;using products reviewed
+
+&#42;&#42;Evidence&#58;&#42;&#42;
+&#45; &#34;I tested this coffee maker for 30 days&#46;&#46;&#46;&#34;
+&#45; Original product photos &#40;not stock images&#41;
+&#45; Detailed pros&#47;cons from actual use
+
+&#42;&#42;4&#46;2 Expertise&#42;&#42;
+&#45; Author credentials displayed
+&#45; Topical depth and accuracy
+&#45; Cites credible sources
+&#45; Avoids misinformation
+
+&#42;&#42;Signals&#58;&#42;&#42;
+&#45; Author bio with qualifications
+&#45; &#34;Written by &#91;Name&#93;&#44; Certified Nutritionist&#34;
+&#45; References to studies&#44; data sources
+&#45; Consistent topical focus
+
+&#42;&#42;4&#46;3 Authoritativeness&#42;&#42;
+&#45; Recognized in the field&#47;industry
+&#45; Backlinks from credible sites
+&#45; Brand mentions and citations
+&#45; Awards&#44; certifications&#44; partnerships
+
+&#42;&#42;4&#46;4 Trustworthiness&#42;&#42;
+&#45; Transparent business information
+&#45; Contact details&#44; physical address
+&#45; Privacy policy&#44; terms of service
+&#45; Secure checkout &#40;e&#45;commerce&#41;
+&#45; Customer reviews and testimonials
+
+&#42;&#42;YMYL &#40;Your Money Your Life&#41; sites need higher standards&#58;&#42;&#42;
+&#45; Medical&#47;health advice
+&#45; Financial guidance
+&#45; Legal information
+&#45; News&#47;current events
+
+For YMYL topics&#44; lack of expertise or citations is a &#42;&#42;critical issue&#42;&#42;&#46;
+
+&#42;&#42;Red flags&#58;&#42;&#42;
+&#45; No author attribution
+&#45; Outdated content &#40;years old&#41;
+&#45; Factual errors
+&#45; Clickbait headlines
+&#45; Hidden contact info
+&#45; No about page
+
+&#42;&#42;Scoring deductions&#58;&#42;&#42;
+&#124; Issue &#124; Severity &#124; Points &#124; Example &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; YMYL content with no author&#47;credentials &#124; Critical &#124; &#8722;15 &#124; Medical advice&#44; no author &#124;
+&#124; No about page or contact info &#124; High &#124; &#8722;8 &#124; Can&#39;t verify legitimacy &#124;
+&#124; Outdated content &#40;3&#43; years old&#41; &#124; Medium &#124; &#8722;5 &#124; Last update 2019 &#124;
+&#124; No source citations &#124; Medium &#124; &#8722;5 &#124; Claims with no backing &#124;
+&#124; Thin&#47;duplicate content &#124; High &#124; &#8722;8 &#124; Scraped content &#124;
+
+&#45;&#45;&#45;
+
+&#35;&#35;&#35; Category 5&#58; Authority &#38; Trust Signals &#40;Weight&#58; 10&#37;&#41;
+
+&#42;&#42;Focus&#58;&#42;&#42; External signals of credibility&#46;
+
+&#35;&#35;&#35;&#35; Checks&#58;
+
+&#42;&#42;5&#46;1 Backlink Profile&#42;&#42; &#40;if data available&#41;
+
+Quality &#62; quantity&#46; Check&#58;
+&#45; Domain authority of linking sites
+&#45; Relevance of linking pages
+&#45; Anchor text distribution &#40;natural mix&#41;
+&#45; No toxic&#47;spammy links
+
+&#42;&#42;Tools&#58;&#42;&#42; Ahrefs&#44; Moz&#44; SEMrush&#44; Google Search Console
+
+&#42;&#42;Red flags&#58;&#42;&#42;
+&#45; Sudden spike in low&#45;quality links
+&#45; Exact&#45;match anchor text manipulation
+&#45; Links from link farms&#47;PBNs
+&#45; Links from unrelated&#47;foreign sites
+
+&#42;&#42;5&#46;2 Brand Signals&#42;&#42;
+&#45; Branded search volume
+&#45; Social media presence
+&#45; Press mentions&#47;media coverage
+&#45; Wikipedia page &#40;if applicable&#41;
+
+&#42;&#42;5&#46;3 Local SEO &#40;if applicable&#41;&#42;&#42;
+
+For local businesses&#44; check&#58;
+&#45; Google Business Profile claimed and optimized
+&#45; Consistent NAP &#40;Name&#44; Address&#44; Phone&#41; across web
+&#45; Local citations &#40;Yelp&#44; Yellow Pages&#44; etc&#46;&#41;
+&#45; Customer reviews and ratings
+&#45; Location pages for multi&#45;location businesses
+
+&#42;&#42;NAP consistency example&#58;&#42;&#42;
+&#96;&#96;&#96;
+&#9989; Consistent&#58;
+Website&#58; &#34;123 Main St&#44; Chicago&#44; IL 60601 &#124; &#40;312&#41; 555&#45;0100&#34;
+Google&#58; &#34;123 Main Street&#44; Chicago&#44; IL 60601 &#124; &#40;312&#41; 555&#45;0100&#34;
+Yelp&#58; &#34;123 Main St&#44; Chicago&#44; Illinois 60601 &#124; 312&#45;555&#45;0100&#34;
+
+&#10060; Inconsistent&#58;
+Website&#58; &#34;123 Main Street&#34;
+Google&#58; &#34;123 Main St&#44; Suite 200&#34;
+Yelp&#58; &#34;123 N Main Street&#34;
+&#96;&#96;&#96;
+
+&#42;&#42;Scoring deductions&#58;&#42;&#42;
+&#124; Issue &#124; Severity &#124; Points &#124; Example &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; Significant toxic backlinks &#124; High &#124; &#8722;10 &#124; 100&#43; spammy links &#124;
+&#124; No backlinks &#40;established site&#41; &#124; Medium &#124; &#8722;5 &#124; 3&#45;year&#45;old site&#44; 0 links &#124;
+&#124; Inconsistent NAP &#40;local business&#41; &#124; Medium &#124; &#8722;5 &#124; Different addresses on 10&#43; sites &#124;
+&#124; No Google Business Profile &#40;local&#41; &#124; High &#124; &#8722;8 &#124; Local business not claimed &#124;
+&#124; Few&#47;no reviews &#40;local&#41; &#124; Medium &#124; &#8722;5 &#124; 0&#45;2 reviews&#44; competitors have 50&#43; &#124;
+
+&#45;&#45;&#45;
+
+&#35;&#35; Scoring System
+
+&#35;&#35;&#35; Calculation Method
+
+Start each category at 100 points&#44; deduct based on issues found&#46;
+
+&#42;&#42;Severity tiers&#58;&#42;&#42;
+&#124; Severity &#124; Points Deducted &#124; When to Use &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; Critical &#124; &#8722;15 to &#8722;30 &#124; Blocks crawling&#47;indexing or severely harms UX &#124;
+&#124; High &#124; &#8722;8 to &#8722;12 &#124; Significantly impacts rankings or user experience &#124;
+&#124; Medium &#124; &#8722;4 to &#8722;6 &#124; Noticeable issue but not blocking &#124;
+&#124; Low &#124; &#8722;1 to &#8722;3 &#124; Minor optimization opportunity &#124;
+
+&#42;&#42;Confidence adjustments&#58;&#42;&#42;
+&#124; Confidence &#124; Score Multiplier &#124; When to Use &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; High &#124; 100&#37; of deduction &#124; Direct evidence&#44; verified issue &#124;
+&#124; Medium &#124; 50&#37; of deduction &#124; Indirect evidence&#44; needs confirmation &#124;
+&#124; Low &#124; 25&#37; of deduction &#124; Suspected issue&#44; limited data &#124;
+
+&#42;&#42;Example calculation&#58;&#42;&#42;
+&#96;&#96;&#96;
+Category&#58; Crawlability &#38; Indexation
+Starting score&#58; 100
+
+Issues found&#58;
+1&#46; Missing sitemap &#40;Critical&#44; High confidence&#41;&#58; &#8722;20 points
+2&#46; 15 orphan pages &#40;Medium&#44; High confidence&#41;&#58; &#8722;5 points
+3&#46; Redirect chains &#40;High&#44; Medium confidence&#41;&#58; &#8722;10 &#215; 0&#46;5 &#61; &#8722;5 points
+
+Category score&#58; 100 &#8722; 20 &#8722; 5 &#8722; 5 &#61; 70&#47;100
+&#96;&#96;&#96;
+
+&#35;&#35;&#35; Overall SEO Health Score
+
+Weighted average across all categories&#58;
+
+&#96;&#96;&#96;
+Overall Score &#61; &#40;C1 &#215; 30&#37;&#41; &#43; &#40;C2 &#215; 25&#37;&#41; &#43; &#40;C3 &#215; 20&#37;&#41; &#43; &#40;C4 &#215; 15&#37;&#41; &#43; &#40;C5 &#215; 10&#37;&#41;
+
+Where&#58;
+C1 &#61; Crawlability &#38; Indexation
+C2 &#61; Technical Foundations
+C3 &#61; On&#45;Page Optimization
+C4 &#61; Content Quality &#38; E&#45;E&#45;A&#45;T
+C5 &#61; Authority &#38; Trust Signals
+&#96;&#96;&#96;
+
+&#42;&#42;If a category is out of scope&#58;&#42;&#42; Redistribute its weight proportionally and note the exclusion&#46;
+
+&#42;&#42;Example&#58;&#42;&#42;
+&#96;&#96;&#96;
+If Authority &#38; Trust &#40;10&#37;&#41; is out of scope&#58;
+&#45; Crawlability&#58; 30&#37; &#8594; 33&#46;3&#37;
+&#45; Technical&#58; 25&#37; &#8594; 27&#46;8&#37;
+&#45; On&#45;Page&#58; 20&#37; &#8594; 22&#46;2&#37;
+&#45; Content&#58; 15&#37; &#8594; 16&#46;7&#37;
+&#96;&#96;&#96;
+
+&#35;&#35;&#35; Health Bands
+
+&#124; Score &#124; Status &#124; Interpretation &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; 90&#45;100 &#124; Excellent &#124; Minor optimizations only &#124;
+&#124; 75&#45;89 &#124; Good &#124; Some improvements recommended &#124;
+&#124; 60&#45;74 &#124; Fair &#124; Multiple issues to address &#124;
+&#124; 40&#45;59 &#124; Poor &#124; Significant problems hurting performance &#124;
+&#124; &#60; 40 &#124; Critical &#124; Major issues blocking SEO success &#124;
+
+&#42;&#42;Important&#58;&#42;&#42; A high score with unresolved critical issues is invalid&#46; Always prioritize critical fixes first&#46;
+
+&#45;&#45;&#45;
+
+&#35;&#35; Reporting Format
+
+Present findings in this exact structure&#58;
+
+&#35;&#35;&#35; 1&#46; Executive Summary
+
+3&#45;4 sentences covering&#58;
+&#45; Overall health status
+&#45; Most critical issue found
+&#45; Primary recommendation
+&#45; Expected impact of fixes
+
+&#42;&#42;Example&#58;&#42;&#42;
+&#62; &#34;This site has an overall SEO health score of 62&#47;100 &#40;Fair&#41;&#46; The most critical issue is that 72&#37; of pages are not indexed due to a misconfigured robots&#46;txt file blocking the entire &#47;products&#47; directory&#46; Fixing this alone would improve the score to &#126;75&#46; Secondary priorities include optimizing Core Web Vitals &#40;LCP currently 4&#46;8s&#41; and addressing 120&#43; pages with duplicate title tags&#46;&#34;
+
+&#35;&#35;&#35; 2&#46; SEO Health Dashboard
+
+&#42;&#42;Overall Score&#58;&#42;&#42; XX&#47;100 &#40;Status&#41;
+
+&#124; Category &#124; Score &#124; Weight &#124; Contribution &#124; Status &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; Crawlability &#38; Indexation &#124; XX&#47;100 &#124; 30&#37; &#124; XX&#46;X pts &#124; &#128308;&#47;&#128993;&#47;&#128994; &#124;
+&#124; Technical Foundations &#124; XX&#47;100 &#124; 25&#37; &#124; XX&#46;X pts &#124; &#128308;&#47;&#128993;&#47;&#128994; &#124;
+&#124; On&#45;Page Optimization &#124; XX&#47;100 &#124; 20&#37; &#124; XX&#46;X pts &#124; &#128308;&#47;&#128993;&#47;&#128994; &#124;
+&#124; Content Quality &#38; E&#45;E&#45;A&#45;T &#124; XX&#47;100 &#124; 15&#37; &#124; XX&#46;X pts &#124; &#128308;&#47;&#128993;&#47;&#128994; &#124;
+&#124; Authority &#38; Trust &#124; XX&#47;100 &#124; 10&#37; &#124; XX&#46;X pts &#124; &#128308;&#47;&#128993;&#47;&#128994; &#124;
+
+&#42;&#42;Status indicators&#58;&#42;&#42;
+&#45; &#128308; Critical &#40;&#60; 60&#41; &#45; Immediate attention required
+&#45; &#128993; Needs Work &#40;60&#45;79&#41; &#45; Prioritize improvements
+&#45; &#128994; Good &#40;80&#45;100&#41; &#45; Minor optimizations only
+
+&#35;&#35;&#35; 3&#46; Detailed Findings
+
+For each issue&#44; provide&#58;
+
+&#42;&#42;Format&#58;&#42;&#42;
+&#96;&#96;&#96;
+Issue &#35;X&#58; &#91;One&#45;sentence description&#93;
+Category&#58; &#91;1&#45;5&#93;
+Severity&#58; &#91;Critical&#47;High&#47;Medium&#47;Low&#93;
+Confidence&#58; &#91;High&#47;Medium&#47;Low&#93;
+Score Impact&#58; &#8722;XX points
+
+Evidence&#58;
+&#91;How you identified this &#45; URL&#44; observation&#44; data point&#93;
+
+Why it matters&#58;
+&#91;Plain&#45;language explanation of impact on rankings&#47;traffic&#47;UX&#93;
+
+Recommendation&#58;
+&#91;What to do &#45; not how to implement unless asked&#93;
+
+Example&#58;
+Before&#58; &#91;Current state&#93;
+After&#58; &#91;Desired state&#93;
+&#96;&#96;&#96;
+
+&#42;&#42;Group findings by category&#42;&#42;&#44; not by severity&#46; This makes it easier to understand related issues&#46;
+
+&#35;&#35;&#35; 4&#46; Prioritized Action Plan
+
+Organize recommendations into 4 tiers&#58;
+
+&#35;&#35;&#35;&#35; Tier 1&#58; Critical Blockers &#40;Fix Immediately&#41;
+
+Issues that prevent search engines from crawling&#47;indexing or severely harm user experience&#46;
+
+&#42;&#42;Format&#58;&#42;&#42;
+&#124; Priority &#124; Issue &#124; Expected Impact &#124; Difficulty &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; &#128308; 1 &#124; Fix robots&#46;txt blocking &#47;products&#47; &#124; &#43;25 points&#44; 800&#43; pages indexed &#124; Easy &#40;10 min&#41; &#124;
+&#124; &#128308; 2 &#124; Implement HTTPS site&#45;wide &#124; &#43;20 points&#44; security &#38; rankings &#124; Medium &#40;2&#45;4 hours&#41; &#124;
+
+&#42;&#42;Expected score after Tier 1 fixes&#58;&#42;&#42; XX &#8594; XX &#40;&#43;XX points&#41;
+
+&#35;&#35;&#35;&#35; Tier 2&#58; High&#45;Impact Improvements
+
+Issues affecting multiple pages or core user experience&#46;
+
+&#42;&#42;Format&#58;&#42;&#42;
+&#124; Priority &#124; Issue &#124; Expected Impact &#124; Difficulty &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; &#128993; 3 &#124; Optimize LCP &#40;hero image&#41; &#124; &#43;12 points&#44; better rankings &#124; Medium &#40;2 hours&#41; &#124;
+&#124; &#128993; 4 &#124; Fix 120 duplicate title tags &#124; &#43;10 points&#44; template fix &#124; Medium &#40;4 hours&#41; &#124;
+
+&#42;&#42;Expected score after Tier 2 fixes&#58;&#42;&#42; XX &#8594; XX &#40;&#43;XX points&#41;
+
+&#35;&#35;&#35;&#35; Tier 3&#58; Quick Wins
+
+Easy fixes with measurable improvement&#46;
+
+&#124; Priority &#124; Issue &#124; Expected Impact &#124; Difficulty &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; &#128994; 5 &#124; Add alt text to images &#124; &#43;5 points &#124; Easy &#40;1 hour&#41; &#124;
+&#124; &#128994; 6 &#124; Fix 12 broken internal links &#124; &#43;3 points &#124; Easy &#40;30 min&#41; &#124;
+
+&#42;&#42;Expected score after Tier 3 fixes&#58;&#42;&#42; XX &#8594; XX &#40;&#43;XX points&#41;
+
+&#35;&#35;&#35;&#35; Tier 4&#58; Long&#45;Term Opportunities
+
+Strategic investments requiring more resources&#46;
+
+&#124; Priority &#124; Issue &#124; Expected Impact &#124; Difficulty &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; &#128309; 7 &#124; Build backlink profile &#124; &#43;8 points&#44; authority growth &#124; Hard &#40;ongoing&#41; &#124;
+&#124; &#128309; 8 &#124; Refresh 50&#43; outdated articles &#124; &#43;5 points &#124; Hard &#40;weeks&#41; &#124;
+&#124; &#128309; 9 &#124; Implement comprehensive schema &#124; &#43;3 points &#124; Medium &#40;days&#41; &#124;
+
+&#35;&#35;&#35; 5&#46; Implementation Notes
+
+&#42;&#42;Tools needed&#58;&#42;&#42;
+&#45; List specific tools for implementation &#40;Search Console&#44; Screaming Frog&#44; etc&#46;&#41;
+
+&#42;&#42;Measurement plan&#58;&#42;&#42;
+&#45; How to verify fixes worked
+&#45; What metrics to track
+&#45; Expected timeline for improvements
+
+&#42;&#42;Example&#58;&#42;&#42;
+&#62; &#34;After implementing Tier 1 fixes&#44; use Google Search Console to submit the sitemap and monitor indexation over 2&#45;3 weeks&#46; Track indexed pages via &#96;site&#58;domain&#46;com&#96; queries&#46; Core Web Vitals should be retested 1 week after image optimization using PageSpeed Insights&#46;&#34;
+
+&#45;&#45;&#45;
+
+&#35;&#35; Important Reminders
+
+&#35;&#35;&#35; Evidence&#45;Based Analysis
+&#45; Base findings on direct observation or data
+&#45; Don&#39;t assume issues exist &#45; verify them
+&#45; Cite specific URLs&#44; screenshots&#44; or tool reports
+&#45; If you can&#39;t verify&#44; state confidence level
+
+&#35;&#35;&#35; Tool Limitations
+&#45; Don&#39;t rely on a single tool for conclusions
+&#45; Different tools measure differently
+&#45; Always cross&#45;reference findings
+&#45; Manual checks &#62; automated&#45;only audits
+
+&#35;&#35;&#35; Score Accuracy
+&#45; The score reflects SEO readiness&#44; not guaranteed rankings
+&#45; Competition and algorithm changes aren&#39;t scored
+&#45; A high score with critical issues is invalid
+&#45; Be honest about out&#45;of&#45;scope categories
+
+&#35;&#35;&#35; Communication Style
+&#45; Use plain language&#44; not jargon
+&#45; Explain &#34;why&#34; not just &#34;what&#34;
+&#45; Prioritize by business impact&#44; not technical severity alone
+&#45; Be specific&#58; &#34;Fix X&#34; not &#34;Improve SEO&#34;
+
+&#35;&#35;&#35; Scope Management
+If the user asks for implementation help&#44; switch from diagnostic to prescriptive mode and provide step&#45;by&#45;step fixes&#46;
+
+&#45;&#45;&#45;
+
+&#35;&#35; Example Audit Output
+
+&#35;&#35;&#35; Executive Summary
+
+This e&#45;commerce site scores 58&#47;100 &#40;Poor&#41;&#44; primarily due to critical indexation issues&#46; The robots&#46;txt file is blocking 1&#44;200&#43; product pages from being crawled&#44; and 68&#37; of the site is not in Google&#39;s index&#46; Mobile Core Web Vitals are failing with LCP at 5&#46;2 seconds on product pages&#46; Fixing these two critical issues would raise the score to approximately 78&#47;100 &#40;Good&#41;&#46; The site has solid on&#45;page optimization &#40;title tags&#44; meta descriptions&#41; but needs technical foundation improvements urgently&#46;
+
+&#35;&#35;&#35; SEO Health Dashboard
+
+&#42;&#42;Overall Score&#58;&#42;&#42; 58&#47;100 &#40;Poor&#41;
+
+&#124; Category &#124; Score &#124; Weight &#124; Contribution &#124; Status &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; Crawlability &#38; Indexation &#124; 45&#47;100 &#124; 30&#37; &#124; 13&#46;5 pts &#124; &#128308; Critical &#124;
+&#124; Technical Foundations &#124; 52&#47;100 &#124; 25&#37; &#124; 13&#46;0 pts &#124; &#128308; Critical &#124;
+&#124; On&#45;Page Optimization &#124; 78&#47;100 &#124; 20&#37; &#124; 15&#46;6 pts &#124; &#128993; Good &#124;
+&#124; Content Quality &#38; E&#45;E&#45;A&#45;T &#124; 65&#47;100 &#124; 15&#37; &#124; 9&#46;8 pts &#124; &#128993; Needs Work &#124;
+&#124; Authority &#38; Trust &#124; 70&#47;100 &#124; 10&#37; &#124; 7&#46;0 pts &#124; &#128993; Good &#124;
+
+&#35;&#35;&#35; Detailed Findings
+
+&#35;&#35;&#35;&#35; Category 1&#58; Crawlability &#38; Indexation &#40;45&#47;100&#41; &#128308;
+
+&#42;&#42;Issue &#35;1&#58; Critical Robots&#46;txt Misconfiguration&#42;&#42;
+Severity&#58; Critical &#124; Confidence&#58; High &#124; Score Impact&#58; &#8722;30 points
+
+Evidence&#58;
+&#96;&#96;&#96;
+robots&#46;txt at https&#58;&#47;&#47;example&#46;com&#47;robots&#46;txt contains&#58;
+User&#45;agent&#58; &#42;
+Disallow&#58; &#47;products&#47;
+&#96;&#96;&#96;
+This blocks all 1&#44;200 product pages from being crawled&#46;
+
+Why it matters&#58;
+Your entire product catalog is invisible to Google&#46; No products can rank&#44; no matter how well&#45;optimized they are&#46; This is costing you thousands of potential organic visits&#46;
 
-Recommendation:
-Remove the `/products/` disallow rule from robots.txt immediately. Only block admin, cart, and checkout URLs.
+Recommendation&#58;
+Remove the &#96;&#47;products&#47;&#96; disallow rule from robots&#46;txt immediately&#46; Only block admin&#44; cart&#44; and checkout URLs&#46;
 
-Before:
-```
-Disallow: /products/
-```
+Before&#58;
+&#96;&#96;&#96;
+Disallow&#58; &#47;products&#47;
+&#96;&#96;&#96;
 
-After:
-```
-Disallow: /admin/
-Disallow: /cart/
-Disallow: /checkout/
-```
+After&#58;
+&#96;&#96;&#96;
+Disallow&#58; &#47;admin&#47;
+Disallow&#58; &#47;cart&#47;
+Disallow&#58; &#47;checkout&#47;
+&#96;&#96;&#96;
 
----
+&#45;&#45;&#45;
 
-**Issue #2: Sitemap Contains Noindexed URLs**
-Severity: High | Confidence: High | Score Impact: &minus;10 points
+&#42;&#42;Issue &#35;2&#58; Sitemap Contains Noindexed URLs&#42;&#42;
+Severity&#58; High &#124; Confidence&#58; High &#124; Score Impact&#58; &#8722;10 points
 
-Evidence:
-Sitemap at https://example.com/sitemap.xml includes 340 URLs that have `&lt;meta name=&quot;robots&quot; content=&quot;noindex&quot;&gt;` tags.
+Evidence&#58;
+Sitemap at https&#58;&#47;&#47;example&#46;com&#47;sitemap&#46;xml includes 340 URLs that have &#96;&#60;meta name&#61;&#34;robots&#34; content&#61;&#34;noindex&#34;&#62;&#96; tags&#46;
 
-Why it matters:
-Sitemaps should only contain pages you want indexed. Including noindexed pages wastes crawl budget and confuses search engines about which pages are important.
+Why it matters&#58;
+Sitemaps should only contain pages you want indexed&#46; Including noindexed pages wastes crawl budget and confuses search engines about which pages are important&#46;
 
-Recommendation:
-Regenerate the sitemap to exclude noindexed pages, parameterized URLs, and pagination URLs beyond page 1.
+Recommendation&#58;
+Regenerate the sitemap to exclude noindexed pages&#44; parameterized URLs&#44; and pagination URLs beyond page 1&#46;
 
----
+&#45;&#45;&#45;
 
-**Issue #3: Deep Crawl Depth on Important Pages**
-Severity: Medium | Confidence: High | Score Impact: &minus;5 points
+&#42;&#42;Issue &#35;3&#58; Deep Crawl Depth on Important Pages&#42;&#42;
+Severity&#58; Medium &#124; Confidence&#58; High &#124; Score Impact&#58; &#8722;5 points
 
-Evidence:
-15 high-value product pages require 5-6 clicks from the homepage to reach. Example: `/products/electronics/computers/laptops/gaming/high-end/product-123`
+Evidence&#58;
+15 high&#45;value product pages require 5&#45;6 clicks from the homepage to reach&#46; Example&#58; &#96;&#47;products&#47;electronics&#47;computers&#47;laptops&#47;gaming&#47;high&#45;end&#47;product&#45;123&#96;
+
+Why it matters&#58;
+Pages deeper than 3&#45;4 clicks get crawled less frequently and receive less link equity&#46; These pages may rank lower than they should&#46;
 
-Why it matters:
-Pages deeper than 3-4 clicks get crawled less frequently and receive less link equity. These pages may rank lower than they should.
-
-Recommendation:
-Link to top-selling or high-margin products directly from the homepage or main category pages. Create a &quot;Featured Products&quot; section with direct links.
-
----
-
-#### Category 2: Technical Foundations (52/100) 🔴
-
-**Issue #4: Poor LCP on Product Pages**
-Severity: Critical | Confidence: High | Score Impact: &minus;15 points
-
-Evidence:
-PageSpeed Insights shows LCP of 5.2 seconds on mobile for product pages. Main cause: unoptimized hero images (1.8MB JPEG files).
-
-Why it matters:
-LCP &gt; 4 seconds is a Core Web Vitals failure. Google uses this as a ranking factor. Users also bounce from slow pages - your conversion rate is likely suffering.
-
-Recommendation:
-Convert product hero images to WebP format, compress to &lt; 200KB, add `fetchpriority=&quot;high&quot;`, and ensure dimensions are specified.
-
----
-
-**Issue #5: No HTTPS on Subdomain**
-Severity: High | Confidence: High | Score Impact: &minus;10 points
-
-Evidence:
-Blog subdomain (blog.example.com) still serves content over HTTP. Main domain is HTTPS.
-
-Why it matters:
-Mixed HTTP/HTTPS across subdomains creates trust issues and security warnings. Google prioritizes HTTPS sites in rankings.
-
-Recommendation:
-Install SSL certificate on blog subdomain and redirect all HTTP traffic to HTTPS with 301 redirects.
-
----
-
-[Continue with remaining categories...]
-
-### Prioritized Action Plan
-
-#### Tier 1: Critical Blockers (Fix Immediately)
-
-| Priority | Issue | Expected Impact | Difficulty | Time |
-|----------|-------|-----------------|------------|------|
-| 🔴 1 | Fix robots.txt - remove /products/ block | +30 pts, 1,200 pages indexed | Easy | 5 min |
-| 🔴 2 | Optimize LCP - compress hero images | +15 pts, pass Core Web Vitals | Medium | 2 hours |
-| 🔴 3 | Add HTTPS to blog subdomain | +10 pts, security compliance | Medium | 3 hours |
-
-**Expected score after Tier 1:** 58 &rarr; 83 (+25 points)
-
-#### Tier 2: High-Impact Improvements
-
-| Priority | Issue | Expected Impact | Difficulty | Time |
-|----------|-------|-----------------|------------|------|
-| 🟡 4 | Clean sitemap - remove noindexed URLs | +10 pts, better crawl efficiency | Easy | 1 hour |
-| 🟡 5 | Improve site architecture - reduce crawl depth | +5 pts, better internal linking | Medium | 4 hours |
-| 🟡 6 | Add author bios to blog posts | +5 pts, E-E-A-T improvement | Easy | 2 hours |
-
-**Expected score after Tier 2:** 83 &rarr; 90 (+7 points)
-
-#### Tier 3: Quick Wins
-
-| Priority | Issue | Expected Impact | Difficulty | Time |
-|----------|-------|-----------------|------------|------|
-| 🟢 7 | Add structured data to products | +3 pts, rich snippets | Easy | 1 hour |
-| 🟢 8 | Fix 8 broken internal links | +2 pts, better UX | Easy | 30 min |
-
-**Expected score after Tier 3:** 90 &rarr; 93 (+3 points)
-
-#### Tier 4: Long-Term Opportunities
-
-| Priority | Issue | Expected Impact | Difficulty | Time |
-|----------|-------|-----------------|------------|------|
-| 🔵 9 | Build backlink strategy | +5 pts, authority growth | Hard | Ongoing |
-| 🔵 10 | Create content hub for top keywords | +5 pts, topical authority | Hard | 2-3 weeks |
-
-### Implementation Plan
-
-**Week 1: Critical fixes**
-1. Update robots.txt (Day 1)
-2. Optimize images and fix LCP (Days 1-2)
-3. Implement HTTPS on subdomain (Day 3)
-4. Submit updated sitemap to Search Console (Day 4)
-
-**Week 2: High-impact improvements**
-1. Clean sitemap regeneration
-2. Internal linking improvements
-3. Add author bios and E-E-A-T signals
-
-**Weeks 3-4: Quick wins + monitoring**
-1. Implement structured data
-2. Fix broken links
-3. Monitor indexation and Core Web Vitals
-
-**Measurement:**
-- Track indexed pages: `site:example.com` (weekly)
-- Monitor Core Web Vitals: PageSpeed Insights (weekly)
-- Check Search Console for crawl errors (daily)
-- Organic traffic baseline vs. 30-day post-fix comparison
-
-**Tools needed:**
-- Google Search Console (verify fixes, submit sitemap)
-- PageSpeed Insights (verify LCP improvements)
-- Screaming Frog or Sitebulb (sitemap regeneration)
-- Chrome DevTools (verify HTTPS implementation)
-
-**Expected timeline for results:**
-- Indexation improvements: 2-3 weeks
-- Core Web Vitals: 1 week to verify, 2-4 weeks for ranking impact
-- Organic traffic lift: 4-6 weeks after all Tier 1-2 fixes
+Recommendation&#58;
+Link to top&#45;selling or high&#45;margin products directly from the homepage or main category pages&#46; Create a &#34;Featured Products&#34; section with direct links&#46;
+
+&#45;&#45;&#45;
+
+&#35;&#35;&#35;&#35; Category 2&#58; Technical Foundations &#40;52&#47;100&#41; &#128308;
+
+&#42;&#42;Issue &#35;4&#58; Poor LCP on Product Pages&#42;&#42;
+Severity&#58; Critical &#124; Confidence&#58; High &#124; Score Impact&#58; &#8722;15 points
+
+Evidence&#58;
+PageSpeed Insights shows LCP of 5&#46;2 seconds on mobile for product pages&#46; Main cause&#58; unoptimized hero images &#40;1&#46;8MB JPEG files&#41;&#46;
+
+Why it matters&#58;
+LCP &#62; 4 seconds is a Core Web Vitals failure&#46; Google uses this as a ranking factor&#46; Users also bounce from slow pages &#45; your conversion rate is likely suffering&#46;
+
+Recommendation&#58;
+Convert product hero images to WebP format&#44; compress to &#60; 200KB&#44; add &#96;fetchpriority&#61;&#34;high&#34;&#96;&#44; and ensure dimensions are specified&#46;
+
+&#45;&#45;&#45;
+
+&#42;&#42;Issue &#35;5&#58; No HTTPS on Subdomain&#42;&#42;
+Severity&#58; High &#124; Confidence&#58; High &#124; Score Impact&#58; &#8722;10 points
+
+Evidence&#58;
+Blog subdomain &#40;blog&#46;example&#46;com&#41; still serves content over HTTP&#46; Main domain is HTTPS&#46;
+
+Why it matters&#58;
+Mixed HTTP&#47;HTTPS across subdomains creates trust issues and security warnings&#46; Google prioritizes HTTPS sites in rankings&#46;
+
+Recommendation&#58;
+Install SSL certificate on blog subdomain and redirect all HTTP traffic to HTTPS with 301 redirects&#46;
+
+&#45;&#45;&#45;
+
+&#91;Continue with remaining categories&#46;&#46;&#46;&#93;
+
+&#35;&#35;&#35; Prioritized Action Plan
+
+&#35;&#35;&#35;&#35; Tier 1&#58; Critical Blockers &#40;Fix Immediately&#41;
+
+&#124; Priority &#124; Issue &#124; Expected Impact &#124; Difficulty &#124; Time &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; &#128308; 1 &#124; Fix robots&#46;txt &#45; remove &#47;products&#47; block &#124; &#43;30 pts&#44; 1&#44;200 pages indexed &#124; Easy &#124; 5 min &#124;
+&#124; &#128308; 2 &#124; Optimize LCP &#45; compress hero images &#124; &#43;15 pts&#44; pass Core Web Vitals &#124; Medium &#124; 2 hours &#124;
+&#124; &#128308; 3 &#124; Add HTTPS to blog subdomain &#124; &#43;10 pts&#44; security compliance &#124; Medium &#124; 3 hours &#124;
+
+&#42;&#42;Expected score after Tier 1&#58;&#42;&#42; 58 &#8594; 83 &#40;&#43;25 points&#41;
+
+&#35;&#35;&#35;&#35; Tier 2&#58; High&#45;Impact Improvements
+
+&#124; Priority &#124; Issue &#124; Expected Impact &#124; Difficulty &#124; Time &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; &#128993; 4 &#124; Clean sitemap &#45; remove noindexed URLs &#124; &#43;10 pts&#44; better crawl efficiency &#124; Easy &#124; 1 hour &#124;
+&#124; &#128993; 5 &#124; Improve site architecture &#45; reduce crawl depth &#124; &#43;5 pts&#44; better internal linking &#124; Medium &#124; 4 hours &#124;
+&#124; &#128993; 6 &#124; Add author bios to blog posts &#124; &#43;5 pts&#44; E&#45;E&#45;A&#45;T improvement &#124; Easy &#124; 2 hours &#124;
+
+&#42;&#42;Expected score after Tier 2&#58;&#42;&#42; 83 &#8594; 90 &#40;&#43;7 points&#41;
+
+&#35;&#35;&#35;&#35; Tier 3&#58; Quick Wins
+
+&#124; Priority &#124; Issue &#124; Expected Impact &#124; Difficulty &#124; Time &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; &#128994; 7 &#124; Add structured data to products &#124; &#43;3 pts&#44; rich snippets &#124; Easy &#124; 1 hour &#124;
+&#124; &#128994; 8 &#124; Fix 8 broken internal links &#124; &#43;2 pts&#44; better UX &#124; Easy &#124; 30 min &#124;
+
+&#42;&#42;Expected score after Tier 3&#58;&#42;&#42; 90 &#8594; 93 &#40;&#43;3 points&#41;
+
+&#35;&#35;&#35;&#35; Tier 4&#58; Long&#45;Term Opportunities
+
+&#124; Priority &#124; Issue &#124; Expected Impact &#124; Difficulty &#124; Time &#124;
+&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#124;&#45;&#45;&#45;&#45;&#45;&#45;&#124;
+&#124; &#128309; 9 &#124; Build backlink strategy &#124; &#43;5 pts&#44; authority growth &#124; Hard &#124; Ongoing &#124;
+&#124; &#128309; 10 &#124; Create content hub for top keywords &#124; &#43;5 pts&#44; topical authority &#124; Hard &#124; 2&#45;3 weeks &#124;
+
+&#35;&#35;&#35; Implementation Plan
+
+&#42;&#42;Week 1&#58; Critical fixes&#42;&#42;
+1&#46; Update robots&#46;txt &#40;Day 1&#41;
+2&#46; Optimize images and fix LCP &#40;Days 1&#45;2&#41;
+3&#46; Implement HTTPS on subdomain &#40;Day 3&#41;
+4&#46; Submit updated sitemap to Search Console &#40;Day 4&#41;
+
+&#42;&#42;Week 2&#58; High&#45;impact improvements&#42;&#42;
+1&#46; Clean sitemap regeneration
+2&#46; Internal linking improvements
+3&#46; Add author bios and E&#45;E&#45;A&#45;T signals
+
+&#42;&#42;Weeks 3&#45;4&#58; Quick wins &#43; monitoring&#42;&#42;
+1&#46; Implement structured data
+2&#46; Fix broken links
+3&#46; Monitor indexation and Core Web Vitals
+
+&#42;&#42;Measurement&#58;&#42;&#42;
+&#45; Track indexed pages&#58; &#96;site&#58;example&#46;com&#96; &#40;weekly&#41;
+&#45; Monitor Core Web Vitals&#58; PageSpeed Insights &#40;weekly&#41;
+&#45; Check Search Console for crawl errors &#40;daily&#41;
+&#45; Organic traffic baseline vs&#46; 30&#45;day post&#45;fix comparison
+
+&#42;&#42;Tools needed&#58;&#42;&#42;
+&#45; Google Search Console &#40;verify fixes&#44; submit sitemap&#41;
+&#45; PageSpeed Insights &#40;verify LCP improvements&#41;
+&#45; Screaming Frog or Sitebulb &#40;sitemap regeneration&#41;
+&#45; Chrome DevTools &#40;verify HTTPS implementation&#41;
+
+&#42;&#42;Expected timeline for results&#58;&#42;&#42;
+&#45; Indexation improvements&#58; 2&#45;3 weeks
+&#45; Core Web Vitals&#58; 1 week to verify&#44; 2&#45;4 weeks for ranking impact
+&#45; Organic traffic lift&#58; 4&#45;6 weeks after all Tier 1&#45;2 fixes
 </pre>
 </div>
       </div>

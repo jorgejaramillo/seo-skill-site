@@ -103,7 +103,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             Análisis SEO de las imágenes
           </h1>
           <p class="text-muted text-[15px] mt-2 max-w-2xl leading-relaxed">
-            Crea un reporte de las imágenes. El peso, extensión y hasta cómo se marca el archivo. Esta habilidad te ayuda a conocer cómo están las imágenes de cara a SEO.
+            El skill de optimización de imágenes analiza las imágenes de tu página web en 10 dimensiones clave: calidad del alt text, tamaño de archivo, uso de formatos modernos (AVIF, WebP), imágenes responsivas con srcset, estrategia de lazy loading, optimización del LCP, decodificación asíncrona, prevención de CLS, nombres de archivo SEO-friendly y uso de CDN. Genera un dashboard de métricas, una lista priorizada de optimizaciones y el código HTML corregido para cada imagen problemática.
           </p>
         </div>
 
@@ -127,7 +127,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         
       <div class="animate-fade-up delay-5">
   <pre class="max-3xl whitespace-pre-wrap break-words font-mono text-sm leading-relaxed bg-indigo-950 p-6 rounded-xl">
-&lt;!-- Updated: 2026-02-14 --&gt;
 ---
 name: seo-images
 description: &gt;
@@ -140,6 +139,30 @@ description: &gt;
 # Image Optimization Analysis
 
 Analyze images on a webpage or site for SEO and performance optimization. Provide actionable recommendations sorted by impact.
+
+## CRITICAL: Data Extraction Method
+
+**WebFetch converts HTML to markdown and may lose `&lt;img&gt;` tag attributes** like `alt`, `loading`, `width`, `height`, `srcset`, and `sizes`. It also strips `&lt;picture&gt;` elements and `&lt;source&gt;` tags entirely.
+
+### Correct approach:
+
+**Use `curl` via Bash to extract image tags accurately:**
+```bash
+# Get all &lt;img&gt; tags with their attributes
+curl -sL [URL] | grep -oP &#x27;&lt;img[^&gt;]+&gt;&#x27; | head -20
+
+# Check for &lt;picture&gt; elements and srcset
+curl -sL [URL] | grep -i -E &#x27;(&lt;picture|srcset|&lt;source.*type=)&#x27;
+
+# Check for lazy loading
+curl -sL [URL] | grep -i &#x27;loading=&#x27; | head -10
+```
+
+**Use WebFetch** only for understanding the general page layout and visible image context.
+
+**NEVER report alt text as &quot;missing&quot; based solely on WebFetch output.** Always verify with `curl`.
+
+---
 
 ## Input
 
@@ -388,7 +411,7 @@ Estimated Savings: XXX KB (XX%)
 | Missing Alt Text | ❌ | XX | SEO issue |
 | Poor Alt Quality | ⚠️ | XX | Generic/stuffed keywords |
 | Oversized Images | ⚠️ | XX | &gt; category threshold |
-| Legacy Formats | ⚠️ | XX | JPEG/PNG &rarr; WebP/AVIF |
+| Legacy Formats | ⚠️ | XX | JPEG/PNG → WebP/AVIF |
 | Missing Dimensions | ❌ | XX | CLS risk |
 | LCP Image Issues | ❌ | XX | Performance killer |
 | Missing Lazy Loading | ⚠️ | XX | Below-fold images |
@@ -399,7 +422,7 @@ Estimated Savings: XXX KB (XX%)
 
 ### Priority Optimization List
 
-Sort by estimated impact (file size savings &times; page views):
+Sort by estimated impact (file size savings × page views):
 
 | Priority | Image | Current | Issues | Recommendation | Est. Savings |
 |----------|-------|---------|--------|----------------|--------------|
@@ -431,7 +454,7 @@ Optimized:
 &lt;/picture&gt;
 ```
 
-**Impact:** Improved LCP score, 76% smaller file (850KB &rarr; 200KB)
+**Impact:** Improved LCP score, 76% smaller file (850KB → 200KB)
 
 **2. Convert Legacy Formats (High Impact)**
 
@@ -474,8 +497,8 @@ width=&quot;800&quot; height=&quot;600&quot;
 **7. Rename Files**
 
 XX images have poor filenames:
-- `IMG_2847.jpg` &rarr; `customer-testimonial-sarah-chen.webp`
-- `Screen-Shot-2024.png` &rarr; `quarterly-revenue-growth-chart.webp`
+- `IMG_2847.jpg` → `customer-testimonial-sarah-chen.webp`
+- `Screen-Shot-2024.png` → `quarterly-revenue-growth-chart.webp`
 
 ### Estimated Performance Impact
 
