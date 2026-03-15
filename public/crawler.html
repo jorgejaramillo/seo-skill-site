@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<meta name="builder" content="Stronglify">
+<link rel="icon" type="image/x-icon" href="https://stronglify-img.s3.amazonaws.com/12/fav-1771113142.png">
+<title>Skill Cloudflare Crawler para descargar HTML renderizado</title>
+<meta name="description" content="Skill para Claude que descarga el HTML renderizado por Cloudflare tal como lo lee Google. Crawlea 1 URL o varias páginas con JS ejecutado.">
+<meta name="robots" content="index">
+<link rel="canonical" href="https://seo-skills.com/crawler">
+<style>
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}
+fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}img{max-width:100%;height:auto}
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: '#0B0F1A',
+            'surface-raised': '#111827',
+            'surface-overlay': '#1A1F2E',
+            ink: '#F1F5F9',
+            'ink-strong': '#FFFFFF',
+            cyan: '#06B6D4',
+            'cyan-light': 'rgba(6,182,212,0.08)',
+            'cyan-mid': 'rgba(6,182,212,0.2)',
+            border: '#1E293B',
+            'border-light': '#293548',
+            muted: '#B0BEC5',
+            'muted-light': '#7C8FA3',
+          },
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['Manrope', 'sans-serif'],
+            mono: ['IBM Plex Mono', 'monospace'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * {box-sizing: border-box;}body {font-family: 'Manrope', sans-serif;}@keyframes fadeUp {from {opacity: 0;transform: translateY(12px);}to {opacity: 1;transform: translateY(0);}}.animate-fade-up {opacity: 0;animation: fadeUp 0.4s ease-out forwards;}.delay-1 {animation-delay: 0.04s;}.delay-2 {animation-delay: 0.08s;}.delay-3 {animation-delay: 0.12s;}.delay-4 {animation-delay: 0.16s;}.delay-5 {animation-delay: 0.2s;}.delay-6 {animation-delay: 0.24s;}.delay-7 {animation-delay: 0.28s;}.command-bar {transition: box-shadow 0.2s ease, border-color 0.2s ease;}.command-bar:hover {box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.08);border-color: rgba(6,182,212,0.3);}@keyframes copyPulse {0% {transform: scale(1);}50% {transform: scale(1.15);}100% {transform: scale(1);}}.copy-success {animation: copyPulse 0.3s ease;}.doc-content h2 {font-family: 'Manrope', sans-serif;font-weight: 700;font-size: 1.1875rem;color: #FFFFFF;margin-top: 1.5rem;margin-bottom: 0.5rem;padding-bottom: 0.375rem;border-bottom: 1px solid #1E293B;}.doc-content h3 {font-family: 'Manrope', sans-serif;font-weight: 600;font-size: 1rem;color: #F1F5F9;margin-top: 1.25rem;margin-bottom: 0.375rem;}.doc-content p {color: #B0BEC5;font-size: 0.9375rem;line-height: 1.65;margin-bottom: 0.75rem;}.doc-content ul {list-style: none;padding: 0;margin-bottom: 0.75rem;}.doc-content ul li {position: relative;padding-left: 1.125rem;color: #B0BEC5;font-size: 0.9375rem;line-height: 1.65;margin-bottom: 0.125rem;}.doc-content ul li::before {content: '';position: absolute;left: 0;top: 0.65em;width: 4px;height: 4px;border-radius: 50%;background: #06B6D4;}.doc-content code {font-family: 'IBM Plex Mono', monospace;font-size: 0.875rem;background: rgba(6,182,212,0.06);color: #F1F5F9;padding: 0.1em 0.35em;border-radius: 3px;border: 1px solid #1E293B;}.doc-content pre {background: #0F172A;color: #E2E8F0;border-radius: 0.5rem;padding: 1rem;overflow-x: auto;margin-bottom: 1rem;font-size: 0.875rem;line-height: 1.5;border: 1px solid #1E293B;}.doc-content pre code {background: none;border: none;padding: 0;color: inherit;font-size: inherit;}.doc-content .code-comment {color: #7C8FA3;}.doc-content .code-keyword {color: #22D3EE;}.doc-content .code-string {color: #67E8F9;}.doc-content .code-number {color: #FCD34D;}.doc-content table {width: 100%;border-collapse: collapse;margin-bottom: 1rem;font-size: 0.875rem;}.doc-content table th {text-align: left;font-weight: 600;color: #F1F5F9;padding: 0.5rem 0.625rem;border-bottom: 1px solid #293548;font-size: 0.75rem;text-transform: uppercase;letter-spacing: 0.05em;}.doc-content table td {padding: 0.5rem 0.625rem;border-bottom: 1px solid #1E293B;color: #B0BEC5;}.doc-content table tr:hover td {background: rgba(6,182,212,0.04);}.related-skill {transition: all 0.15s ease;}.related-skill:hover {border-color: rgba(6,182,212,0.3);background: rgba(6,182,212,0.04);}body::before {content: '';position: fixed;top: 0;left: 0;right: 0;bottom: 0;pointer-events: none;opacity: 0.03;background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");z-index: 9999;}::-webkit-scrollbar {width: 5px;}::-webkit-scrollbar-track {background: transparent;}::-webkit-scrollbar-thumb {background: #1E293B;border-radius: 3px;}::-webkit-scrollbar-thumb:hover {background: #334155;}
+  </style>
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MF348R83');</script>
+</head>
+<body>
+  
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MF348R83"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="bg-surface text-ink antialiased min-h-screen">
+
+  <div class="animate-fade-up delay-1 border-b border-border bg-surface-raised/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-[1200px] mx-auto px-6 h-12 flex items-center justify-between">
+      <a href="https://seo-skills.com" class="flex items-center gap-2.5 group">
+        <span class="font-display font-800 text-[15px] tracking-wide text-ink-strong">SEO SKILLS</span>
+      </a>
+      <div class="flex items-center gap-5">
+        
+        <a href="https://seo-skills.com/informacion" class="text-[13px] text-muted font-medium hover:text-cyan transition-colors">Información</a>
+        
+        <a href="https://seo-skills.com/usar" class="text-[13px] text-muted font-medium hover:text-cyan transition-colors">Usarlo</a>
+             
+        <a href="https://github.com/jorgejaramillo/seoskills" class="text-[13px] text-muted font-medium hover:text-cyan transition-colors flex items-center gap-1.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="max-w-[1200px] mx-auto px-6 pt-4">
+    <nav class="animate-fade-up delay-2 flex items-center gap-2 text-xs font-mono text-muted-light">
+      <a href="https://seo-skills.com" class="hover:text-cyan transition-colors">SEO Skills</a>
+      <span>/</span>
+      <span class="text-muted">SEO Técnico</span>
+      <span>/</span>
+      <span class="text-ink font-medium">Descarga el HTML que ve Google usando Cloudflare</span>
+    </nav>
+  </div>
+
+  
+  <div class="max-w-[1200px] mx-auto px-6 pt-5 pb-14">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8">
+
+      
+      <div>
+        
+        <div class="animate-fade-up delay-3 mb-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="inline-flex px-2 py-0.5 rounded text-[11px] font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">SEO Técnico</span>          </div>
+          <h1 class="font-display font-800 text-[26px] lg:text-[32px] tracking-tight text-ink-strong leading-tight">
+            Descarga el HTML que ve Google usando Cloudflare
+          </h1>
+          <p class="text-muted text-[15px] mt-2 max-w-2xl leading-relaxed">
+            El skill Cloudflare Crawler descarga el HTML que Cloudflare Browser Rendering devuelve tras ejecutar JavaScript con Chrome headless — el mismo HTML que Google Caffeine indexa. Soporta dos modos: descarga de una sola URL con el endpoint /content, o crawl de múltiples páginas con el endpoint /crawl en modo asíncrono. Guarda los resultados como archivos .html en crawler/output/. Requiere un API token de Cloudflare con permiso Browser Rendering.
+          </p>
+        </div>
+
+        
+        <div class="animate-fade-up delay-4 command-bar bg-surface-raised border border-border rounded-lg px-4 py-3 flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3 overflow-hidden">
+            <span class="text-muted-light font-mono text-[15px] select-none">$</span>
+            <code class="font-mono text-[15px] text-ink font-medium truncate max-w-xl block" id="commandText">https://github.com/jorgejaramillo/seoskills/blob/master/crawler/SKILL.md</code>
+          </div>
+          <button onclick="copyCommand()" id="copyBtn" class="flex-shrink-0 ml-3 p-1.5 rounded-md hover:bg-cyan-light text-muted-light hover:text-cyan transition-all" title="Copiar comando">
+            <svg id="copyIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <svg id="checkIcon" class="hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#06B6D4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </button>
+        </div>
+
+        
+      <div class="animate-fade-up delay-5">
+  <pre class="max-3xl whitespace-pre-wrap break-words font-mono text-sm leading-relaxed bg-indigo-950 p-6 rounded-xl">
+&#45;&#45;&#45;
+name&#58; cloudflare&#45;crawl
+description&#58; &#62;
+  Descarga el HTML renderizado por Cloudflare de una o varias URLs&#46;
+  Esto representa exactamente lo que Google lee de un sitio web&#46;
+  Usar cuando el usuario quiera descargar p&#225;ginas&#44; crawlear un sitio&#44;
+  ver c&#243;mo ve Google una URL&#44; o recopilar HTML de m&#250;ltiples p&#225;ginas&#46;
+&#45;&#45;&#45;
+
+&#35; Cloudflare Crawler
+
+&#35;&#35; Al invocar este skill
+
+Pregunta siempre al inicio&#58;
+
+&#62; &#191;Quieres descargar &#42;&#42;1 URL&#42;&#42; o &#42;&#42;buscar y descargar varias&#42;&#42;&#63;
+
+&#45;&#45;&#45;
+
+&#35;&#35; Opci&#243;n A &#8212; 1 URL
+
+1&#46; Pide la URL
+2&#46; Usa el endpoint &#96;&#47;content&#96; de Cloudflare Browser Rendering para obtener el HTML renderizado
+3&#46; Guarda el resultado como archivo &#96;&#46;html&#96; en &#96;crawler&#47;output&#47;&#96;
+4&#46; El archivo guardado es el HTML que Google realmente lee
+
+&#35;&#35;&#35; C&#243;mo descargar 1 URL
+
+&#96;&#96;&#96;bash
+curl &#45;X POST &#34;https&#58;&#47;&#47;api&#46;cloudflare&#46;com&#47;client&#47;v4&#47;accounts&#47;&#123;account&#95;id&#125;&#47;browser&#45;rendering&#47;content&#34; &#92;
+  &#45;H &#34;Authorization&#58; Bearer &#123;api&#95;token&#125;&#34; &#92;
+  &#45;H &#34;Content&#45;Type&#58; application&#47;json&#34; &#92;
+  &#45;d &#39;&#123;&#34;url&#34;&#58; &#34;https&#58;&#47;&#47;example&#46;com&#34;&#44; &#34;rejectResourceTypes&#34;&#58; &#91;&#34;image&#34;&#44; &#34;media&#34;&#44; &#34;font&#34;&#44; &#34;stylesheet&#34;&#93;&#125;&#39;
+&#96;&#96;&#96;
+
+&#45; Usa &#96;render&#58; true&#96; &#40;por defecto&#41; para que Cloudflare ejecute JavaScript con Chrome headless antes de devolver el HTML &#8212; esto es exactamente lo que Google Caffeine indexa
+&#45; &#96;rejectResourceTypes&#96; excluye im&#225;genes&#44; fuentes y CSS para acelerar la descarga sin perder contenido indexable
+&#45; Guarda siempre como &#96;&#46;html&#96;&#44; nunca como &#96;&#46;md&#96;
+
+&#45;&#45;&#45;
+
+&#35;&#35; Opci&#243;n B &#8212; Buscar y descargar varias
+
+1&#46; Pide la URL de inicio &#40;o patr&#243;n de URLs&#41;
+2&#46; Pregunta cu&#225;ntas p&#225;ginas como m&#225;ximo &#40;default&#58; 10&#41;
+3&#46; Usa el endpoint &#96;&#47;crawl&#96; con el flujo async&#58; POST &#8594; poll &#8594; GET resultados
+4&#46; Muestra un resumen con todas las URLs descargadas
+
+&#35;&#35;&#35; C&#243;mo crawlear varias URLs
+
+Guarda cada p&#225;gina como &#96;&#123;slug&#125;&#46;html&#96; en &#96;crawler&#47;output&#47;&#96;&#46;
+
+&#96;&#96;&#96;bash
+&#35; 1&#46; Iniciar el crawl
+curl &#45;X POST &#34;https&#58;&#47;&#47;api&#46;cloudflare&#46;com&#47;client&#47;v4&#47;accounts&#47;&#123;account&#95;id&#125;&#47;browser&#45;rendering&#47;crawl&#34; &#92;
+  &#45;H &#34;Authorization&#58; Bearer &#123;api&#95;token&#125;&#34; &#92;
+  &#45;H &#34;Content&#45;Type&#58; application&#47;json&#34; &#92;
+  &#45;d &#39;&#123;
+    &#34;url&#34;&#58; &#34;https&#58;&#47;&#47;example&#46;com&#34;&#44;
+    &#34;limit&#34;&#58; 10&#44;
+    &#34;formats&#34;&#58; &#91;&#34;html&#34;&#93;&#44;
+    &#34;render&#34;&#58; true&#44;
+    &#34;rejectResourceTypes&#34;&#58; &#91;&#34;image&#34;&#44; &#34;media&#34;&#44; &#34;font&#34;&#44; &#34;stylesheet&#34;&#93;
+  &#125;&#39;
+
+&#35; 2&#46; Obtener el job&#95;id de la respuesta y hacer polling
+curl &#34;https&#58;&#47;&#47;api&#46;cloudflare&#46;com&#47;client&#47;v4&#47;accounts&#47;&#123;account&#95;id&#125;&#47;browser&#45;rendering&#47;crawl&#47;&#123;job&#95;id&#125;&#63;limit&#61;1&#34; &#92;
+  &#45;H &#34;Authorization&#58; Bearer &#123;api&#95;token&#125;&#34;
+
+&#35; 3&#46; Cuando status &#61; &#34;completed&#34;&#44; obtener todos los resultados
+curl &#34;https&#58;&#47;&#47;api&#46;cloudflare&#46;com&#47;client&#47;v4&#47;accounts&#47;&#123;account&#95;id&#125;&#47;browser&#45;rendering&#47;crawl&#47;&#123;job&#95;id&#125;&#34; &#92;
+  &#45;H &#34;Authorization&#58; Bearer &#123;api&#95;token&#125;&#34;
+&#96;&#96;&#96;
+
+El polling se repite cada 5 segundos hasta que &#96;status&#96; cambie de &#96;&#34;running&#34;&#96; a &#96;&#34;completed&#34;&#96;&#46;
+
+&#45;&#45;&#45;
+
+&#35;&#35; Qu&#233; devuelve Cloudflare
+
+Cloudflare ejecuta el JS de la p&#225;gina con Chrome headless y devuelve el &#42;&#42;HTML final del DOM&#42;&#42; &#8212; el mismo HTML que Google Caffeine recibe al indexar&#46; Esto incluye&#58;
+
+&#45; Contenido generado por JavaScript &#40;React&#44; Vue&#44; etc&#46;&#41;
+&#45; Todo el &#96;&#60;head&#62;&#96;&#58; meta description&#44; canonical&#44; OG tags&#44; hreflang&#44; structured data
+&#45; Texto visible en el DOM despu&#233;s del render
+&#45; Links presentes en el DOM final
+
+&#42;&#42;No incluye&#42;&#42;&#58; lo que est&#225; en &#96;&#60;noscript&#62;&#96;&#44; iframes externos&#44; ni contenido detr&#225;s de login&#47;captchas&#46;
+
+&#42;&#42;Formato de salida&#42;&#42;&#58; siempre &#96;&#46;html&#96;&#46; Nunca usar markdown &#8212; el HTML es la fuente de verdad&#46;
+
+&#45;&#45;&#45;
+
+&#35;&#35; Credenciales necesarias
+
+El usuario debe tener&#58;
+&#45; &#96;account&#95;id&#96; de Cloudflare
+&#45; API token con permiso &#42;&#42;&#34;Browser Rendering &#8211; Edit&#34;&#42;&#42;
+
+Si no los tiene&#44; pide que los obtengan desde el dashboard de Cloudflare &#8594; My Profile &#8594; API Tokens&#46;
+
+&#45;&#45;&#45;
+
+&#35;&#35; L&#237;mites importantes
+
+&#45; Plan gratuito&#58; 5 crawls&#47;d&#237;a&#44; m&#225;x 100 p&#225;ginas por crawl
+&#45; Plan de pago &#40;&#36;5&#47;mes&#41;&#58; crawls ilimitados&#44; hasta 100&#44;000 p&#225;ginas
+&#45; El crawler &#42;&#42;no&#42;&#42; puede bypassear protecci&#243;n bot de Cloudflare &#40;Turnstile&#44; WAF&#41;&#46; Para crawlear tu propio sitio protegido&#44; crear una regla WAF skip rule&#46;
+</pre>
+</div>
+      </div>
+
+      
+      <aside class="animate-fade-up delay-6">
+        <div class="lg:sticky lg:top-16 space-y-3">
+          
+          <div class="bg-surface-raised rounded-lg border border-border p-4">
+            <h3 class="text-[11px] font-semibold uppercase tracking-wider text-muted-light mb-3">REPOSITORIO</h3>
+            <a href="#" class="flex items-center gap-2.5 group">
+              <div class="w-8 h-8 rounded-md bg-surface-overlay border border-border flex items-center justify-center flex-shrink-0">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-muted group-hover:text-cyan transition-colors"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </div>
+              <div>
+                <div class="text-[13px] font-medium text-ink group-hover:text-cyan transition-colors">SEO Skills</div>
+                <div class="text-[11px] text-muted-light">Descarga y usas estas habilidades</div>
+              </div>
+            </a>
+          </div>
+
+          
+          <div class="bg-surface-raised rounded-lg border border-border p-4">
+            <h3 class="text-[11px] font-semibold uppercase tracking-wider text-muted-light mb-3">Compatible con:</h3>
+            <div class="flex flex-wrap gap-1.5">
+
+              <span class="px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-surface-overlay border border-border text-muted">Cursor</span>
+
+              <span class="px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-surface-overlay border border-border text-muted">V0</span>
+
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
+  
+  <footer class="border-t border-border">
+    <div class="max-w-[1200px] mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="font-display font-700 text-[11px] tracking-wide text-muted-light">SEO SKILLS</span>
+      </div>
+      <div class="text-[11px] text-muted-light">
+        Hecho en Stronglify por Jorge Jaramillo.
+      </div>
+    </div>
+  </footer>
+</div><script>
+function copyCommand() {
+      const text = 'https:\/\/github.com\/jorgejaramillo\/seoskills\/blob\/master\/crawler\/SKILL.md';
+      navigator.clipboard.writeText(text).then(() => {
+        const copyIcon = document.getElementById('copyIcon');
+        const checkIcon = document.getElementById('checkIcon');
+        const btn = document.getElementById('copyBtn');
+        copyIcon.classList.add('hidden');
+        checkIcon.classList.remove('hidden');
+        btn.classList.add('copy-success');
+        setTimeout(() => {
+          copyIcon.classList.remove('hidden');
+          checkIcon.classList.add('hidden');
+          btn.classList.remove('copy-success');
+        }, 1500);
+      });
+    }
+</script></body>
+</html>
